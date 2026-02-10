@@ -14,5 +14,6 @@
     <a href="faculties.php">Faculties</a> <br>
     <a href="departments.php">Departments</a> <br>
     <a href="programs.php">Programs</a> <br>
+    <a href="student_list.php">Students</a> <br>
 </body>
 </html>
