@@ -7,5 +7,6 @@
 </head>
 <body>
     <a href="role.php">Role</a> <br>
+    <a href="departments.php"></a> <br>
 </body>
 </html>
