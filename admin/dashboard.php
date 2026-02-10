@@ -9,6 +9,7 @@
     <a href="role.php">Role</a> <br>
     <a href="staff.php">Staff</a> <br>
     <a href="login.php">Login</a> <br>
+    <a href="forgot_password.php">Forgot Password</a> <br>
     <a href="logout.php">Logout</a> <br>
     <a href="profile.php">Profile</a> <br>
     <a href="faculties.php">Faculties</a> <br>
