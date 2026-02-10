@@ -7,6 +7,7 @@
 </head>
 <body>
     <a href="role.php">Role</a> <br>
-    <a href="departments.php"></a> <br>
+    <a href="faculties.php">Faculties</a> <br>
+    <a href="departments.php">Departments</a> <br>
 </body>
 </html>
