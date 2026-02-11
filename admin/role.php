@@ -1,6 +1,9 @@
 <?php 
     session_start();
     include("../includes/connect.php");
+    include("../includes/AutoID_Functions.php");
+    include("../includes/Browsing_Functions.php");
+    recordbrowse("http://localhost/UniEnroll/admin/role.php");
 
 if (isset($_POST['btnregister'])) 
 {
@@ -13,7 +16,7 @@ if (isset($_POST['btnregister']))
     $count=mysqli_num_rows($select);
     if ($count==0) 
     {
-        $insert=mysqli_query($connection,"INSERT INTO role(RoleID, Role, RoleStatus) 
+        $insert=mysqli_query($connection,"INSERT INTO role(RoleID, Role, Status) 
                                                         VALUES('$RID', '$role', '$status')");
         if ($insert) 
         {
@@ -45,7 +48,7 @@ if (isset($_POST['btnregister']))
 <body>
     <p>Please Fill Role Information</p>
     <form action="role.php" method="post">
-        <input type="hidden" name="txtRID" value="">
+        <input type="hidden" name="txtRID" value="<?php echo AutoID('role', 'RoleID', 'RID-', 4) ?>">
         <label for="text">Role</label>
         <input type="text" name="txtrole" placeholder="Enter Role Name" required>
         <button type="submit" name="btnregister">Register</button>
