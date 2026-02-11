@@ -12,9 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List</title>
 
-    <script type="text/javascript" src="../entryjs/jquery-3.1.1.slim.min.js"></script>
-    <script type="text/javascript" src="../DataTables/datatables.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css"/>
+    <script type="text/javascript" src="../includes/entryjs/jquery-3.1.1.slim.min.js"></script>
+    <script type="text/javascript" src="../includes/DataTables/datatables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../includes/DataTables/datatables.min.css"/>
 </head>
 <body>
     <script>
@@ -58,8 +58,8 @@
                         }
 
                         echo "<td>
-                                    <a href='role_update.php?rid=$rid'>Edit</a>
-                                    <a href='role_delete.php?rid=$rid'>Delete</a>
+                                <a href='role_update.php?rid=$rid'>Edit</a>
+                                <a href='role_delete.php?rid=$rid'>Delete</a>
                               </td>";
                     echo "</tr>";
                 }
