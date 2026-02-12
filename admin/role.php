@@ -50,6 +50,12 @@ if (isset($_POST['btnregister']))
 
     <?php include('sidebar.php'); ?>
 
+    <div class="main-container">
+        <div class="pd-ltr-20">
+            <?php include('footer.php'); ?>
+        </div>
+    </div>
+
     <p>Please Fill Role Information</p>
     <form action="role.php" method="post">
         <input type="hidden" name="txtRID" value="<?php echo AutoID('role', 'RoleID', 'RID-', 4) ?>">
