@@ -20,7 +20,7 @@
     <?php include('header.php'); ?>
 
     <?php include('sidebar.php'); ?>
-    
+
     <script>
         $(document).ready( function () { $('#tableid').DataTable(); } );
     </script>
@@ -70,5 +70,7 @@
              ?>
         </tbody>
     </table>
+
+     <?php include('script.php'); ?>
 </body>
 </html>
