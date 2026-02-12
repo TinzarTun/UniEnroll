@@ -41,9 +41,7 @@ if (isset($_POST['btnregister']))
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Role</title>
+    <?php include('head.php'); ?>
 </head>
 <body>
     <p>Please Fill Role Information</p>
