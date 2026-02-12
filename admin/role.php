@@ -52,5 +52,7 @@ if (isset($_POST['btnregister']))
         <button type="submit" name="btnregister">Register</button>
         <button type="reset" name="btncancel">Cancel</button>
     </form>
+
+     <?php include('script.php'); ?>
 </body>
 </html>
