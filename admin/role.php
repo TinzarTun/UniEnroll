@@ -46,6 +46,8 @@ if (isset($_POST['btnregister']))
 <body>
     <?php include('pre-loader.php'); ?>
 
+    <?php include('header.php'); ?>
+
     <p>Please Fill Role Information</p>
     <form action="role.php" method="post">
         <input type="hidden" name="txtRID" value="<?php echo AutoID('role', 'RoleID', 'RID-', 4) ?>">
