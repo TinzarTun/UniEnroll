@@ -15,6 +15,12 @@
     <link rel="stylesheet" type="text/css" href="../includes/DataTables/datatables.min.css"/>
 </head>
 <body>
+    <?php include('pre-loader.php'); ?>
+
+    <?php include('header.php'); ?>
+
+    <?php include('sidebar.php'); ?>
+    
     <script>
         $(document).ready( function () { $('#tableid').DataTable(); } );
     </script>
