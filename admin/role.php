@@ -53,6 +53,7 @@ if (isset($_POST['btnregister']))
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
+                <!-- Page Header Start -->
                 <div class="page-header">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
@@ -69,6 +70,7 @@ if (isset($_POST['btnregister']))
                         </div>
                     </div>
                 </div>
+                <!-- Page Header End -->
 
                 <!-- Role Form Start -->
                 <div class="pd-20 card-box mb-30">

@@ -93,6 +93,9 @@
         <?php include('footer.php'); ?>
       </div>
     </div>
-        <?php include('script.php'); ?>
+      <?php include('script.php'); ?>
+
+      <script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+      <script src="vendors/scripts/dashboard.js"></script>
   </body>
 </html>
