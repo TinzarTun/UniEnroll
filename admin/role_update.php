@@ -15,6 +15,29 @@
         $role=$data['Role'];
         $status=$data['Status'];
     }
+
+    if (isset($_POST['btnupdate'])) 
+    {
+        $id=$_POST['txtRID'];
+        $rl=$_POST['txtrole'];
+        $st=$_POST['cbostatus'];
+            
+        $update="UPDATE role
+                SET Role='$rl', Status='$st'
+                WHERE RoleID='$id'";
+        $run=mysqli_query($connection,$update);
+
+        if ($run) 
+        {
+            echo "<script>alert('Update Successful!')</script>";
+            echo "<script>location='role_list.php'</script>";
+        }
+
+        else
+        {
+            echo mysqli_error($connection);
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +90,7 @@
                         <input type="hidden" name="txtRID" value="<?php echo $roleID ?>">
                         <div class="form-group">
                             <label>Role</label>
-                            <input class="form-control" type="text" name="txtrole" value="<?php echo $role ?>" disabled>
+                            <input class="form-control" type="text" name="txtrole" value="<?php echo $role ?>">
                         </div>
 
                         <div class="form-group">
