@@ -8,6 +8,18 @@
     if (isset($_REQUEST['rid'])) 
     {
         $roleID=$_REQUEST['rid'];
+
+        // Protected Role
+        $protectedRoles = ['RID-0001', 'RID-0002', 'RID-0003'];
+
+        if (in_array($roleID, $protectedRoles)) {
+            echo "<script>
+                alert('You are not allowed to update this role.');
+                window.location.href='role_list.php';
+            </script>";
+            exit();
+        }
+
         $select=mysqli_query($connection,"SELECT * FROM role 
                                         WHERE RoleID='$roleID'");
         $data=mysqli_fetch_array($select);
