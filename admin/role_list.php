@@ -78,12 +78,12 @@
                                                 
                                             if($status=="Active")
                                             {
-                                                echo "<td>Active</td>";
+                                                echo "<td><span class='badge badge-success'>Active</span></td>";
                                             }
 
                                             if($status=="Inactive")
                                             {
-                                                echo "<td>Inactive</td>";
+                                                echo "<td><span class='badge badge-secondary'>Inactive</span></td>";
                                             }
 
                                             echo "<td>
