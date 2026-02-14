@@ -96,8 +96,8 @@
                                                     </a>
 
                                                     <div class='dropdown-menu dropdown-menu-right dropdown-menu-icon-list'>
-                                                        <a class='dropdown-item' href='role_update.php?rid=$fid'><i class='dw dw-edit2'></i> Edit</a>
-                                                        <a class='dropdown-item' href='role_delete.php?rid=$fid'><i class='dw dw-delete-3'></i> Delete</a>
+                                                        <a class='dropdown-item' href='faculties_update.php?fid=$fid'><i class='dw dw-edit2'></i> Edit</a>
+                                                        <a class='dropdown-item' href='faculties_delete.php?fid=$fid'><i class='dw dw-delete-3'></i> Delete</a>
                                                     </div>
                                                 </div>
                                             </td>";
