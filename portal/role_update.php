@@ -3,7 +3,7 @@
     include("../includes/connect.php");
     include("../includes/AutoID_Functions.php");
     include("../includes/Browsing_Functions.php");
-    recordbrowse("http://localhost/UniEnroll/admin/role_update.php");
+    recordbrowse("http://localhost/UniEnroll/portal/role_update.php");
 
     if (isset($_REQUEST['rid'])) 
     {
