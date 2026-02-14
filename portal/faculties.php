@@ -72,7 +72,7 @@ if (isset($_POST['btnregister']))
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="role_list.php">Faculties List</a></li>
+                                    <li class="breadcrumb-item"><a href="faculties_list.php">Faculties List</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Faculties Register</li>
                                 </ol>
                             </nav>
