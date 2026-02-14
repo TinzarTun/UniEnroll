@@ -2,7 +2,7 @@
     session_start();
     include("../includes/connect.php");
     include("../includes/Browsing_Functions.php");
-    recordbrowse("http://localhost/UniEnroll/admin/role_list.php");
+    recordbrowse("http://localhost/UniEnroll/portal/role_list.php");
 ?>
 
 <!DOCTYPE html>
