@@ -25,6 +25,18 @@
         $year=$_POST['txtyear'];
         $status=$_POST['cbostatus'];
 
+        // Check if faculties name already exists
+        $checkName = mysqli_query($connection, "
+            SELECT FacultiesID 
+            FROM faculties 
+            WHERE Name='$name' AND FacultiesID != '$FID'
+        ");
+        if (mysqli_num_rows($checkName) > 0) {
+            echo "<script>alert('This faculties name already exists. Please use a different name.')</script>";
+            echo "<script>location='faculties_list.php'</script>";
+            exit();
+        }
+
         // Validate founded year (YYYY)
         if (!preg_match('/^[0-9]{4}$/', $year)) {
             echo "<script>alert('Founded Year must be a 4-digit year like 1999 or 2026')</script>";
