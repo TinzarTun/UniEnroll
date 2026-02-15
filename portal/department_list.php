@@ -103,7 +103,7 @@
                                                     </a>
 
                                                     <div class='dropdown-menu dropdown-menu-right dropdown-menu-icon-list'>
-                                                        <a class='dropdown-item' href='department_update.php?did=$did'><i class='dw dw-eye'></i> View</a>
+                                                        <a class='dropdown-item' href='department_view.php?did=$did'><i class='dw dw-eye'></i> View</a>
                                                         <a class='dropdown-item' href='department_update.php?did=$did'><i class='dw dw-edit2'></i> Edit</a>
                                                         <a class='dropdown-item' href='department_delete.php?did=$did'><i class='dw dw-delete-3'></i> Delete</a>
                                                     </div>
