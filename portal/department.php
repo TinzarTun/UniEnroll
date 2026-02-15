@@ -7,30 +7,30 @@
 
 if (isset($_POST['btnregister'])) 
 {
-    $FID=$_POST['txtFID'];
-    $txtname=$_POST['txtname'];
-    $name = 'Faculties of ' . $txtname;
+    $DID=$_POST['txtDID'];
+    $name=$_POST['txtname'];
     $year=$_POST['txtyear'];
+    $faculties=$_POST['cbofname'];
     $status="Active";
 
     // Validate founded year (YYYY)
     if (!preg_match('/^[0-9]{4}$/', $year)) {
         echo "<script>alert('Founded Year must be a 4-digit year like 1999 or 2026')</script>";
-        echo "<script>location='faculties.php'</script>";
+        echo "<script>location='department.php'</script>";
         exit();
     }
 
-    $select=mysqli_query($connection,"SELECT * FROM faculties 
+    $select=mysqli_query($connection,"SELECT * FROM department 
                                                     WHERE Name='$name'");
     $count=mysqli_num_rows($select);
     if ($count==0) 
     {
-        $insert=mysqli_query($connection,"INSERT INTO faculties(FacultiesID, Name, Founded_year, Status) 
-                                                        VALUES('$FID', '$name', '$year','$status')");
+        $insert=mysqli_query($connection,"INSERT INTO department(DepartmentID, FacultiesID, Name, Founded_year, Status) 
+                                                        VALUES('$DID', '$faculties','$name', '$year','$status')");
         if ($insert) 
         {
-            echo "<script>alert('Faculties Register Success!')</script>";
-            echo "<script>location='faculties_list.php'</script>";
+            echo "<script>alert('Department Register Success!')</script>";
+            echo "<script>location='department_list.php'</script>";
         }
 
         else
@@ -41,8 +41,8 @@ if (isset($_POST['btnregister']))
 
     else
     {
-        echo "<script>alert('Faculties Already Exist!')</script>";
-        echo "<script>location='faculties.php'</script>";
+        echo "<script>alert('Department Already Exist!')</script>";
+        echo "<script>location='department.php'</script>";
     }
 }
 ?>
