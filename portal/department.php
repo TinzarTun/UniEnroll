@@ -20,6 +20,22 @@ if (isset($_POST['btnregister']))
         exit();
     }
 
+    // Get faculties founded year
+    $facQuery = mysqli_query($connection, "
+        SELECT Founded_year 
+        FROM faculties 
+        WHERE FacultiesID = '$faculties'
+    ");
+    $facData = mysqli_fetch_assoc($facQuery);
+    $facultyYear = $facData['Founded_year'];
+
+    // Compare founded years
+    if ($year < $facultyYear) {
+        echo "<script>alert('Department cannot be founded before its faculty (Faculty founded: $facultyYear)')</script>";
+        echo "<script>location='department.php'</script>";
+        exit();
+    }
+
     $select=mysqli_query($connection,"SELECT * FROM department 
                                                     WHERE Name='$name'");
     $count=mysqli_num_rows($select);
