@@ -33,6 +33,18 @@
         $id=$_POST['txtRID'];
         $rl=$_POST['txtrole'];
         $st=$_POST['cbostatus'];
+
+        // Check if role name already exists
+        $checkName = mysqli_query($connection, "
+            SELECT RoleID 
+            FROM role 
+            WHERE Role='$rl' AND RoleID != '$id'
+        ");
+        if (mysqli_num_rows($checkName) > 0) {
+            echo "<script>alert('This role name already exists. Please use a different name.')</script>";
+            echo "<script>location='role_list.php'</script>";
+            exit();
+        }
             
         $update="UPDATE role
                 SET Role='$rl', Status='$st'
