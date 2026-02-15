@@ -39,6 +39,15 @@
 
         if ($run) 
         {
+            // If faculty is set to Inactive → deactivate all related departments
+            if ($status == "Inactive") {
+                mysqli_query($connection, "
+                    UPDATE department
+                    SET Status = 'Inactive'
+                    WHERE FacultiesID = '$FID'
+                ");
+            }
+
             echo "<script>alert('Update Successful!')</script>";
             echo "<script>location='faculties_list.php'</script>";
         }
