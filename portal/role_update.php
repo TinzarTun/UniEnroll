@@ -107,7 +107,7 @@
 
                         <div class="form-group">
                             <label>Status</label>
-                            <select class="form-control" name="cbostatus" required/>
+                            <select class="selectpicker form-control" name="cbostatus" required/>
                                 <option><?php echo $status ?></option>
                                 <?php 
                                     if($status!="Active")
