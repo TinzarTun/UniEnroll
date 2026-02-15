@@ -110,15 +110,15 @@
 
                         <div class="form-group">
                             <label>Status</label>
-                            <select class="form-control" name="cbostatus" required/>
+                            <select class="selectpicker form-control" name="cbostatus" required/>
                                 <option><?php echo $Faculties_Status ?></option>
                                 <?php 
-                                    if($status!="Active")
+                                    if($Faculties_Status!="Active")
                                     {
                                         echo"<option value='Active'>Active</option>";
                                     }
 
-                                    if($status!="Inactive")
+                                    if($Faculties_Status!="Inactive")
                                     {
                                         echo"<option value='Inactive'>Inactive</option>";
                                     }
