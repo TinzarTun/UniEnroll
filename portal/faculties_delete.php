@@ -9,6 +9,21 @@
     {
         $facultiesID=$_REQUEST['fid'];
 
+        // Check if there are linked departments
+        $check = mysqli_query($connection, "
+            SELECT COUNT(*) AS dept_count 
+            FROM department 
+            WHERE FacultiesID='$facultiesID'
+        ");
+        $row = mysqli_fetch_assoc($check);
+
+        if ($row['dept_count'] > 0) {
+            echo "<script>alert('Cannot delete faculties: There are departments linked to it. Please reassign or delete the departments first.')</script>";
+            echo "<script>location='faculties_list.php'</script>";
+            exit();
+        }
+
+        // If no linked departments, safe to delete
         $delete="DELETE FROM faculties
                 WHERE FacultiesID='$facultiesID'";
         $run=mysqli_query($connection,$delete);
