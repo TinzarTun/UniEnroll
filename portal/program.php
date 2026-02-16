@@ -41,19 +41,19 @@
                 </div>
                 <!-- Page Header End -->
 
-                <!-- Department Form Start -->
+                <!-- Program Form Start -->
                 <div class="pd-20 card-box mb-30">
                     <div class="clearfix">
                         <div class="pull-left">
                             <h4 class="text-blue h4">Registration Form</h4>
-                            <p class="mb-30">Please fill department information</p>
+                            <p class="mb-30">Please fill program information</p>
                         </div>
                         <div class="pull-right">
-                            <a href="department_list.php" class="btn btn-primary btn-sm scroll-click" role="button"><i class="icon-copy ti-angle-double-left"></i></a>
+                            <a href="program_list.php" class="btn btn-primary btn-sm scroll-click" role="button"><i class="icon-copy ti-angle-double-left"></i></a>
                         </div>
                     </div>
 
-                    <form action="department.php" method="post">
+                    <form action="program.php" method="post">
                         <input type="hidden" name="txtDID" value="<?php echo AutoID('department', 'DepartmentID', 'DID-', 4) ?>">
                         <div class="form-group">
                             <label>Department Name</label>
@@ -123,7 +123,7 @@
                         </div>
                     </form>
                 </div>
-                <!-- Department Form End -->
+                <!-- Program Form End -->
             </div>
 
             <?php include('footer.php'); ?>
