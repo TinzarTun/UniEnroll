@@ -27,13 +27,13 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="title">
-                                <h4>Department</h4>
+                                <h4>Program</h4>
                             </div>
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="department_list.php">Department List</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Department Register</li>
+                                    <li class="breadcrumb-item"><a href="program_list.php">Program List</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Program Register</li>
                                 </ol>
                             </nav>
                         </div>
