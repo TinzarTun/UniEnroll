@@ -76,6 +76,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Start Year</label>
+                            <input class="form-control" type="text" name="txtstart" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
+                        </div>
+
+                        <div class="form-group">
                             <label>Faculties Name</label>
                             <select class="selectpicker form-control" name="cbofname" required/>
                                 <option value="">Choose Faculties Name</option>
@@ -120,11 +125,6 @@
                                      ?>
                                 </optgroup>
                             </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Founded Year</label>
-                            <input class="form-control" type="text" name="txtyear" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
                         </div>
 
                         <div class="clearfix">
