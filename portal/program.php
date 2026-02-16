@@ -5,6 +5,10 @@
     include("../includes/Browsing_Functions.php");
     recordbrowse("http://localhost/UniEnroll/portal/department.php");
 
+    if (isset($_POST['btnregister'])) 
+    {
+        // code
+    }
 ?>
 
 <!DOCTYPE html>
