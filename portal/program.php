@@ -75,7 +75,7 @@
 
                                             if($DepartmentStatus=="Active")
                                             {
-                                                echo "<option value='$departmentID'>$departmentName, $departmentYear</option>"; 
+                                                echo "<option value='$departmentID'>Department of $departmentName, $departmentYear</option>"; 
                                             }
                                         }
                                      ?>
@@ -120,7 +120,7 @@
 
                         <div class="form-group">
                             <label>Duration Years</label>
-                            <input class="form-control" type="number" name="txtduration" placeholder="e.g. 1,2,3,4" required>
+                            <input class="form-control" type="text" name="txtduration" placeholder="e.g. 1,2,3,4" pattern="[1-9]{1}" maxlength="1" required>
                         </div>
 
                         <div class="form-group">
