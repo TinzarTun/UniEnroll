@@ -54,7 +54,7 @@
                     </div>
 
                     <form action="program.php" method="post">
-                        <input type="hidden" name="txtDID" value="<?php echo AutoID('department', 'DepartmentID', 'DID-', 4) ?>">
+                        <input type="hidden" name="txtPGID" value="<?php echo AutoID('program', 'ProgramID', 'PGID-', 4) ?>">
                         <div class="form-group">
                             <label>Department Name</label>
                             <input class="form-control" type="text" name="txtname" placeholder="e.g. Computer Science, Civil Engineering, Business Administration" required>
