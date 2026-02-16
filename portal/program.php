@@ -55,6 +55,54 @@
 
                     <form action="program.php" method="post">
                         <input type="hidden" name="txtPGID" value="<?php echo AutoID('program', 'ProgramID', 'PGID-', 4) ?>">
+
+                        <div class="form-group">
+                            <label>Department Name</label>
+                            <select class="selectpicker form-control" name="cbodepartment" required/>
+                                <option value="">Choose Department Name</option>
+                                
+                                <optgroup label="Active">
+                                    <?php 
+                                        $select=mysqli_query($connection,"SELECT * FROM department");
+                                        $count=mysqli_num_rows($select);
+                                        for ($i=0; $i < $count; $i++) 
+                                        { 
+                                            $data=mysqli_fetch_array($select);
+                                            $departmentID=$data['DepartmentID'];
+                                            $departmentName=$data['Name'];
+                                            $departmentYear=$data['Founded_year'];
+                                            $DepartmentStatus=$data['Status'];
+
+                                            if($DepartmentStatus=="Active")
+                                            {
+                                                echo "<option value='$departmentID'>$departmentName, $departmentYear</option>"; 
+                                            }
+                                        }
+                                     ?>
+                                </optgroup>
+
+                                <optgroup label="Inactive">
+                                    <?php 
+                                        $select=mysqli_query($connection,"SELECT * FROM department");
+                                        $count=mysqli_num_rows($select);
+                                        for ($i=0; $i < $count; $i++) 
+                                        { 
+                                            $data=mysqli_fetch_array($select);
+                                            $departmentID=$data['DepartmentID'];
+                                            $departmentName=$data['Name'];
+                                            $departmentYear=$data['Founded_year'];
+                                            $departmentStatus=$data['Status'];
+
+                                            if($departmentStatus=="Inactive")
+                                            {
+                                                echo "<option disabled>$departmentName, $departmentYear</option>";
+                                            }
+                                        }
+                                     ?>
+                                </optgroup>
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label>Program Name</label>
                             <input class="form-control" type="text" name="txtname" placeholder="Please enter program name" required>
@@ -78,53 +126,6 @@
                         <div class="form-group">
                             <label>Start Year</label>
                             <input class="form-control" type="text" name="txtstart" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Faculties Name</label>
-                            <select class="selectpicker form-control" name="cbofname" required/>
-                                <option value="">Choose Faculties Name</option>
-                                
-                                <optgroup label="Active">
-                                    <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM faculties");
-                                        $count=mysqli_num_rows($select);
-                                        for ($i=0; $i < $count; $i++) 
-                                        { 
-                                            $data=mysqli_fetch_array($select);
-                                            $facultiesID=$data['FacultiesID'];
-                                            $facultiesName=$data['Name'];
-                                            $facultiesYear=$data['Founded_year'];
-                                            $facultiesStatus=$data['Status'];
-
-                                            if($facultiesStatus=="Active")
-                                            {
-                                                echo "<option value='$facultiesID'>$facultiesName, $facultiesYear</option>"; 
-                                            }
-                                        }
-                                     ?>
-                                </optgroup>
-
-                                <optgroup label="Inactive">
-                                    <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM faculties");
-                                        $count=mysqli_num_rows($select);
-                                        for ($i=0; $i < $count; $i++) 
-                                        { 
-                                            $data=mysqli_fetch_array($select);
-                                            $facultiesID=$data['FacultiesID'];
-                                            $facultiesName=$data['Name'];
-                                            $facultiesYear=$data['Founded_year'];
-                                            $facultiesStatus=$data['Status'];
-
-                                            if($facultiesStatus=="Inactive")
-                                            {
-                                                echo "<option disabled>$facultiesName, $facultiesYear</option>";
-                                            }
-                                        }
-                                     ?>
-                                </optgroup>
-                            </select>
                         </div>
 
                         <div class="clearfix">
