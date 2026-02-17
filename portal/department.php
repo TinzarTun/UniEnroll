@@ -118,12 +118,12 @@ if (isset($_POST['btnregister']))
 
                         <div class="form-group">
                             <label>Faculties Name</label>
-                            <select class="selectpicker form-control" name="cbofname" required/>
+                            <select class="selectpicker form-control" name="cbofname" required>
                                 <option value="">Choose Faculties Name</option>
                                 
                                 <optgroup label="Active">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM faculties");
+                                        $select=mysqli_query($connection,"SELECT * FROM faculties ORDER BY Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
@@ -143,7 +143,7 @@ if (isset($_POST['btnregister']))
 
                                 <optgroup label="Inactive">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM faculties");
+                                        $select=mysqli_query($connection,"SELECT * FROM faculties ORDER BY Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
