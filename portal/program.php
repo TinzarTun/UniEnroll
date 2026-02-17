@@ -99,7 +99,7 @@
 
                                             if($departmentStatus=="Inactive")
                                             {
-                                                echo "<option disabled>$departmentName, $departmentYear</option>";
+                                                echo "<option disabled>Department of $departmentName, $departmentYear</option>";
                                             }
                                         }
                                      ?>
