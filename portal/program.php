@@ -21,6 +21,13 @@
             echo "<script>location='program.php'</script>";
             exit();
         }
+
+        // Validate start year (YYYY)
+        if (!preg_match('/^[0-9]{4}$/', $start)) {
+            echo "<script>alert('Start Year must be a 4-digit year like 1999 or 2026')</script>";
+            echo "<script>location='program.php'</script>";
+            exit();
+        }
     }
 ?>
 
