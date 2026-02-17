@@ -168,7 +168,7 @@
                                 
                                 <optgroup label="Active">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM faculties");
+                                        $select=mysqli_query($connection,"SELECT * FROM faculties ORDER BY Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
@@ -188,7 +188,7 @@
 
                                 <optgroup label="Inactive">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM faculties");
+                                        $select=mysqli_query($connection,"SELECT * FROM faculties ORDER BY Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
