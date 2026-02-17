@@ -2,7 +2,7 @@
     session_start();
     include("../includes/connect.php");
     include("../includes/Browsing_Functions.php");
-    recordbrowse("http://localhost/UniEnroll/portal/department_list.php");
+    recordbrowse("http://localhost/UniEnroll/portal/program_list.php");
 ?>
 
 <!DOCTYPE html>
@@ -25,12 +25,12 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="title">
-                                <h4>Department</h4>
+                                <h4>Program</h4>
                             </div>
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Department List</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Program List</li>
                                 </ol>
                             </nav>
                         </div>
@@ -38,16 +38,16 @@
                 </div>
                 <!-- Page Header End -->
 
-                <!-- Department List Table Start -->
+                <!-- Program List Table Start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">
                         <div class="clearfix">
                             <div class="pull-left">
-                                <h4 class="text-blue h4">Department List</h4>
-                                <p class="mb-0">List of department information</p>
+                                <h4 class="text-blue h4">Program List</h4>
+                                <p class="mb-0">List of program information</p>
                             </div>
                             <div class="pull-right">
-                                <a href="department.php" class="btn btn-primary btn-sm scroll-click" role="button"><i class="icon-copy ti-plus"></i></a>
+                                <a href="program.php" class="btn btn-primary btn-sm scroll-click" role="button"><i class="icon-copy ti-plus"></i></a>
                             </div>
                         </div>
                     </div>
@@ -56,35 +56,32 @@
                             <thead>
                                 <tr>
                                     <th class="table-plus datatable-nosort">#</th>
-                                    <th>Department Name</th>
-                                    <th>Faculties Name</th>
-                                    <th>Status</th>
+                                    <th>Program Name</th>
+                                    <th>Degree Level</th>
+                                    <th>Duration Years</th>
                                     <th class="datatable-nosort">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php 
-                                    $select=mysqli_query($connection,"SELECT 
-                                                                                        d.DepartmentID,
-                                                                                        d.Name AS department_name,
-                                                                                        f.Name AS faculty_name,
-                                                                                        d.Status
-                                                                                    FROM department d
-                                                                                    JOIN faculties f 
-                                                                                        ON d.FacultiesID = f.FacultiesID");
+                                    $select=mysqli_query($connection,"SELECT * 
+                                                                                    FROM program p, department d
+                                                                                    WHERE d.DepartmentID=p.DepartmentID");
                                     $count=mysqli_num_rows($select);
                                     for ($i = 0; $i < $count; $i++) 
                                     {
                                         $data = mysqli_fetch_array($select);
-                                        $did = $data['DepartmentID'];
-                                        $dname = $data['department_name'];
-                                        $fname = $data['faculty_name'];
+                                        $pgid = $data['ProgramID'];
+                                        $pname = $data['Program_Name'];
+                                        $dlevel = $data['Degree_level'];
+                                        $duration = $data['Duration_years'];
                                         $status = $data['Status'];
 
                                         echo "<tr>";
-                                            echo "<td class='table-plus'>$did</td>";
-                                            echo "<td>$dname</td>";
-                                            echo "<td>$fname</td>";
+                                            echo "<td class='table-plus'>$pgid</td>";
+                                            echo "<td>$pname</td>";
+                                            echo "<td>$dlevel</td>";
+                                            echo "<td>$duration</td>";
                                                 
                                             if($status=="Active")
                                             {
@@ -103,9 +100,9 @@
                                                     </a>
 
                                                     <div class='dropdown-menu dropdown-menu-right dropdown-menu-icon-list'>
-                                                        <a class='dropdown-item' href='department_view.php?did=$did'><i class='dw dw-eye'></i> View</a>
-                                                        <a class='dropdown-item' href='department_update.php?did=$did'><i class='dw dw-edit2'></i> Edit</a>
-                                                        <a class='dropdown-item' href='department_delete.php?did=$did'><i class='dw dw-delete-3'></i> Delete</a>
+                                                        <a class='dropdown-item' href='program_view.php?pgid=$pgid'><i class='dw dw-eye'></i> View</a>
+                                                        <a class='dropdown-item' href='program_update.php?pgid=$pgid'><i class='dw dw-edit2'></i> Edit</a>
+                                                        <a class='dropdown-item' href='program_delete.php?pgid=$pgid'><i class='dw dw-delete-3'></i> Delete</a>
                                                     </div>
                                                 </div>
                                             </td>";
@@ -116,7 +113,7 @@
                         </table>
                     </div>
                 </div>
-                <!-- Department List Table End -->
+                <!-- Program List Table End -->
             </div>
             
             <?php include('footer.php'); ?>
