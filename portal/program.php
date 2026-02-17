@@ -44,6 +44,31 @@
             echo "<script>location='program.php'</script>";
             exit();
         }
+
+        $select=mysqli_query($connection,"SELECT * FROM program 
+                                                        WHERE Program_Name='$name'");
+        $count=mysqli_num_rows($select);
+        if ($count==0) 
+        {
+            $insert=mysqli_query($connection,"INSERT INTO program(ProgramID, DepartmentID, Program_Name, Degree_level, Duration_years, Start_year, Status) 
+                                                            VALUES('$PGID', '$department','$name', '$lvl', '$duration', '$start','$status')");
+            if ($insert) 
+            {
+                echo "<script>alert('Program Register Success!')</script>";
+                echo "<script>location='program_list.php'</script>";
+            }
+
+            else
+            {
+                echo mysqli_error($connection);
+            }
+        }
+
+        else
+        {
+            echo "<script>alert('Program Already Exist!')</script>";
+            echo "<script>location='program.php'</script>";
+        }
     }
 ?>
 
