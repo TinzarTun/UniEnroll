@@ -7,7 +7,20 @@
 
     if (isset($_POST['btnregister'])) 
     {
-        // code
+        $PGID=$_POST['txtPGID'];
+        $name=$_POST['txtname'];
+        $duration=$_POST['txtduration'];
+        $start=$_POST['txtstart'];
+        $lvl=$_POST['cbolvl'];
+        $department=$_POST['cbodepartment'];
+        $status="Active";
+
+        // Validate duration year (1-9)
+        if (!preg_match('/^[1-9]{1}$/', $duration)) {
+            echo "<script>alert('Duration must be a single digit between 1 and 9 years')</script>";
+            echo "<script>location='program.php'</script>";
+            exit();
+        }
     }
 ?>
 
@@ -114,7 +127,7 @@
 
                         <div class="form-group">
                             <label>Degree Level</label>
-                            <select class="selectpicker form-control" name="cbolvl" required/>
+                            <select class="selectpicker form-control" name="cbolvl" required>
                                 <option value='Diploma'>Diploma</option>
                                 <option value='Bachelor'>Bachelor</option>
                                 <option value='Master'>Master</option>
