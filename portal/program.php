@@ -28,6 +28,22 @@
             echo "<script>location='program.php'</script>";
             exit();
         }
+
+        // Get department founded year
+        $depQuery = mysqli_query($connection, "
+            SELECT Founded_year 
+            FROM department 
+            WHERE DepartmentID = '$department'
+        ");
+        $depData = mysqli_fetch_assoc($depQuery);
+        $departmentYear = $depData['Founded_year'];
+
+        // Compare years
+        if ($start < $departmentYear) {
+            echo "<script>alert('Program start year cannot be earlier than its department founded year (Department founded: $departmentYear).')</script>";
+            echo "<script>location='program.php'</script>";
+            exit();
+        }
     }
 ?>
 
