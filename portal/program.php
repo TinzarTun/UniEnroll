@@ -62,12 +62,12 @@
 
                         <div class="form-group">
                             <label>Department Name</label>
-                            <select class="selectpicker form-control" name="cbodepartment" required/>
+                            <select class="selectpicker form-control" name="cbodepartment" required>
                                 <option value="">Choose Department Name</option>
                                 
                                 <optgroup label="Active">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM department");
+                                        $select=mysqli_query($connection,"SELECT * FROM department ORDER BY Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
@@ -87,7 +87,7 @@
 
                                 <optgroup label="Inactive">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM department");
+                                        $select=mysqli_query($connection,"SELECT * FROM department ORDER BY Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
