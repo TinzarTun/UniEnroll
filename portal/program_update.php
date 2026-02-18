@@ -102,9 +102,15 @@
         ");
         $deptRow = mysqli_fetch_assoc($checkDept);
 
+        // Re-fetch program status inside POST
+        $currentProgram = mysqli_query($connection, "
+            SELECT Status FROM program WHERE ProgramID='$PGID'
+        ");
+        $currentProgRow = mysqli_fetch_assoc($currentProgram);
+
         if ($deptRow['Status'] == "Inactive") {
             // Force program status to remain unchanged
-            $status = $program_status;
+            $status = $currentProgRow['Status'];
         }
 
         $update="UPDATE program
