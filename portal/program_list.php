@@ -59,6 +59,7 @@
                                     <th>Program Name</th>
                                     <th>Degree Level</th>
                                     <th>Duration Years</th>
+                                    <th>Status</th>
                                     <th class="datatable-nosort">Action</th>
                                 </tr>
                             </thead>
