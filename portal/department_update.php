@@ -102,6 +102,15 @@
 
         if ($run) 
         {
+            // If department is set to Inactive → deactivate all related programs
+            if ($status == "Inactive") {
+                mysqli_query($connection, "
+                    UPDATE program
+                    SET Status='Inactive'
+                    WHERE DepartmentID='$DID'
+                ");
+            }
+
             echo "<script>alert('Update Successful!')</script>";
             echo "<script>location='department_list.php'</script>";
         }
