@@ -39,6 +39,7 @@
         $department_name  = $data['department_name'];
         $department_year  = $data['department_year'];
         $department_status= $data['department_status'];
+        $department_ID = $data['DepartmentID'];
     }
 
     if (isset($_POST['btnregister'])) 
@@ -134,7 +135,7 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="program_list.php">Program List</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Program Register</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Program Update</li>
                                 </ol>
                             </nav>
                         </div>
@@ -146,20 +147,21 @@
                 <div class="pd-20 card-box mb-30">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <h4 class="text-blue h4">Registration Form</h4>
-                            <p class="mb-30">Please fill program information</p>
+                            <h4 class="text-blue h4">Update Form</h4>
+                            <p class="mb-30">Please update program information</p>
                         </div>
                         <div class="pull-right">
                             <a href="program_list.php" class="btn btn-primary btn-sm scroll-click" role="button"><i class="icon-copy ti-angle-double-left"></i></a>
                         </div>
                     </div>
 
-                    <form action="program.php" method="post">
-                        <input type="hidden" name="txtPGID" value="<?php echo AutoID('program', 'ProgramID', 'PGID-', 4) ?>">
+                    <form action="program_update.php" method="post">
+                        <input type="hidden" name="txtPGID" value="<?php echo $departmentID ?>">
 
                         <div class="form-group">
                             <label>Department Name</label>
                             <select class="selectpicker form-control" name="cbodepartment" required>
+                                <option value="<?php echo $department_ID ?>"><?php echo $department_name ?>, <?php echo $department_year ?>, <?php echo $department_status ?></option>
                                 <option value="">Choose Department Name</option>
                                 
                                 <optgroup label="Active">
@@ -206,12 +208,13 @@
 
                         <div class="form-group">
                             <label>Program Name</label>
-                            <input class="form-control" type="text" name="txtname" placeholder="Please enter program name" required>
+                            <input class="form-control" type="text" name="txtname" value="<?php echo $program_name ?>" required>
                         </div>
 
                         <div class="form-group">
                             <label>Degree Level</label>
                             <select class="selectpicker form-control" name="cbolvl" required>
+                                <option value="<?php echo $degree_level ?>"><?php echo $degree_level ?></option>
                                 <option value='Diploma'>Diploma</option>
                                 <option value='Bachelor'>Bachelor</option>
                                 <option value='Master'>Master</option>
@@ -221,12 +224,40 @@
 
                         <div class="form-group">
                             <label>Duration Years</label>
-                            <input class="form-control" type="text" name="txtduration" placeholder="e.g. 1,2,3,4" pattern="[1-9]{1}" maxlength="1" required>
+                            <input class="form-control" type="text" name="txtduration" value="<?php echo $duration_years ?>" pattern="[1-9]{1}" maxlength="1" required>
                         </div>
 
                         <div class="form-group">
                             <label>Start Year</label>
-                            <input class="form-control" type="text" name="txtstart" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
+                            <input class="form-control" type="text" name="txtstart" value="<?php echo $start_year ?>" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <?php if ($department_status == "Inactive") { ?>
+                                <!-- Department inactive → status locked -->
+                                <input type="text" class="form-control" value="<?php echo $program_status ?>" readonly>
+                                <input type="hidden" name="cbostatus" value="<?php echo $program_status ?>">
+                                <small class="text-danger">
+                                    Program status cannot be changed because the department is inactive.
+                                </small>
+                            <?php } else { ?>
+                                <!-- Department active → editable -->
+                                <select class="selectpicker form-control" name="cbostatus" required>
+                                    <option><?php echo $program_status ?></option>
+                                    <?php 
+                                        if($program_status!="Active")
+                                        {
+                                            echo"<option value='Active'>Active</option>";
+                                        }
+
+                                        if($program_status!="Inactive")
+                                        {
+                                            echo"<option value='Inactive'>Inactive</option>";
+                                        }
+                                    ?>
+                                </select>
+                            <?php } ?>
                         </div>
 
                         <div class="clearfix">
@@ -234,8 +265,7 @@
                                 <p class="mb-30 font-14"></p>
                             </div>
                             <div class="pull-right">
-                                <button class="btn btn-success" type="submit" name="btnregister">Register</button>
-                                <button class="btn btn-danger" type="reset" name="btncancel">Cancel</button>
+                                <button class="btn btn-success" type="submit" name="btnupdate">Update</button>
                             </div>
                         </div>
                     </form>
