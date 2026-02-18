@@ -33,7 +33,24 @@
                                                                 ON d.FacultiesID = f.FacultiesID
 
                                                             WHERE p.ProgramID = '$programID'");
-            
+            $data=mysqli_fetch_array($select);
+
+            // Program
+            $program_name     = $data['Program_Name'];
+            $degree_level     = $data['Degree_level'];
+            $duration_years   = $data['Duration_years'];
+            $start_year       = $data['Start_year'];
+            $program_status   = $data['program_status'];
+
+            // Department
+            $department_name  = $data['department_name'];
+            $department_year  = $data['department_year'];
+            $department_status= $data['department_status'];
+
+            // Faculty
+            $faculty_name     = $data['faculty_name'];
+            $faculty_year     = $data['faculty_year'];
+            $faculty_status   = $data['faculty_status'];
         }
 ?>
 
