@@ -80,6 +80,8 @@
 
                     <form action="department_view.php" method="post">
                         <input type="hidden" name="txtDID" value="<?php echo $departmentID ?>">
+
+                        <!-- Faculties Information -->
                         <label class="<?php echo ($faculty_status=='Active')?'text-success':'text-danger'; ?> weight-600">
                             Faculties Information
                         </label>
@@ -99,6 +101,7 @@
                             <input class="form-control" type="text" value="<?php echo $faculty_status ?>" readonly>
                         </div>
 
+                        <!-- Department Information -->
                         <label class="<?php echo ($department_status=='Active')?'text-success':'text-danger'; ?> weight-600">
                             Department Information
                         </label>

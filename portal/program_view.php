@@ -93,7 +93,7 @@
                     <div class="clearfix">
                         <div class="pull-left">
                             <h4 class="text-blue h4">View Form</h4>
-                            <p class="mb-30">Detail information of <?php echo $department_name ?> department</p>
+                            <p class="mb-30">Detail information of <?php echo $program_name ?> program</p>
                         </div>
                         <div class="pull-right">
                             <a href="program_list.php" class="btn btn-primary btn-sm scroll-click" role="button"><i class="icon-copy ti-angle-double-left"></i></a>
@@ -102,43 +102,8 @@
 
                     <form action="program_view.php" method="post">
                         <input type="hidden" name="txtPGID" value="<?php echo $programID ?>">
-                        <label class="<?php echo ($faculty_status=='Active')?'text-success':'text-danger'; ?> weight-600">
-                            Faculties Information
-                        </label>
 
-                        <div class="form-group">
-                            <label>Faculties Name</label>
-                            <input class="form-control" type="text" value="<?php echo $faculty_name ?>" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Founded Year</label>
-                            <input class="form-control" type="text" value="<?php echo $faculty_year ?>" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Status</label>
-                            <input class="form-control" type="text" value="<?php echo $faculty_status ?>" readonly>
-                        </div>
-
-                        <label class="<?php echo ($department_status=='Active')?'text-success':'text-danger'; ?> weight-600">
-                            Department Information
-                        </label>
-
-                        <div class="form-group">
-                            <label>Department Name</label>
-                            <input class="form-control" type="text" value="<?php echo $department_name ?>" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Founded Year</label>
-                            <input class="form-control" type="text" value="<?php echo $department_year ?>" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Status</label>
-                            <input class="form-control" type="text" value="<?php echo $department_status ?>" readonly>
-                        </div>
+                        <!-- code -->
 
                         <div class="clearfix">
                             <div class="pull-left">
