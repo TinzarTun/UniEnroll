@@ -9,6 +9,21 @@
     {
         $departmentID=$_REQUEST['did'];
 
+        // Check if programs exist under this department
+        $check = mysqli_query($connection, "
+            SELECT COUNT(*) AS program_count 
+            FROM program 
+            WHERE DepartmentID='$departmentID'
+        ");
+        $row = mysqli_fetch_assoc($check);
+
+        if ($row['program_count'] > 0) {
+            echo "<script>alert('Cannot delete department: Programs are linked to this department. Please delete or reassign programs first.')</script>";
+            echo "<script>location='department_list.php'</script>";
+            exit();
+        }
+
+        // If no linked, safe to delete
         $delete="DELETE FROM department
                 WHERE DepartmentID='$departmentID'";
         $run=mysqli_query($connection,$delete);
