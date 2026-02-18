@@ -103,6 +103,36 @@
                     <form action="program_view.php" method="post">
                         <input type="hidden" name="txtPGID" value="<?php echo $programID ?>">
 
+                        <!-- Program Information -->
+                        <label class="<?php echo ($program_status=='Active')?'text-success':'text-danger'; ?> weight-600">
+                            Program Information
+                        </label>
+
+                        <div class="form-group">
+                            <label>Program Name</label>
+                            <input class="form-control" type="text" value="<?php echo $program_name ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Degree Level</label>
+                            <input class="form-control" type="text" value="<?php echo $degree_level ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Duration Years</label>
+                            <input class="form-control" type="text" value="<?php echo $duration_years ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Start Year</label>
+                            <input class="form-control" type="text" value="<?php echo $start_year ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <input class="form-control" type="text" value="<?php echo $program_status ?>" readonly>
+                        </div>
+
                         <!-- Department Information -->
                         <label class="<?php echo ($department_status=='Active')?'text-success':'text-danger'; ?> weight-600">
                             Department Information
