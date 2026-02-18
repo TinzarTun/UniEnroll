@@ -5,30 +5,35 @@
     include("../includes/Browsing_Functions.php");
     recordbrowse("http://localhost/UniEnroll/portal/program_view.php");
 
-    if (isset($_REQUEST['did'])) 
+    if (isset($_REQUEST['pgid'])) 
         {
-            $departmentID=$_REQUEST['did'];
+            $programID=$_REQUEST['pgid'];
 
             $select=mysqli_query($connection,"SELECT 
+                                                                p.ProgramID,
+                                                                p.Program_Name,
+                                                                p.Degree_level,
+                                                                p.Duration_years,
+                                                                p.Start_year,
+                                                                p.Status AS program_status,
+
                                                                 d.DepartmentID,
                                                                 d.Name AS department_name,
-                                                                f.Name AS faculty_name,
                                                                 d.Founded_year AS department_year,
-                                                                f.Founded_year AS faculty_year,
                                                                 d.Status AS department_status,
+
+                                                                f.FacultiesID,
+                                                                f.Name AS faculty_name,
+                                                                f.Founded_year AS faculty_year,
                                                                 f.Status AS faculty_status
-                                                            FROM department d
+                                                            FROM program p
+                                                            JOIN department d 
+                                                                ON p.DepartmentID = d.DepartmentID
                                                             JOIN faculties f 
                                                                 ON d.FacultiesID = f.FacultiesID
-                                                            WHERE d.DepartmentID='$departmentID'");
-            $data=mysqli_fetch_array($select);
 
-            $department_name=$data['department_name'];
-            $faculty_name=$data['faculty_name'];
-            $department_year=$data['department_year'];
-            $faculty_year=$data['faculty_year'];
-            $department_status=$data['department_status'];
-            $faculty_status=$data['faculty_status'];
+                                                            WHERE p.ProgramID = '$programID'");
+            
         }
 ?>
 
@@ -79,7 +84,7 @@
                     </div>
 
                     <form action="program_view.php" method="post">
-                        <input type="hidden" name="txtDID" value="<?php echo $departmentID ?>">
+                        <input type="hidden" name="txtPGID" value="<?php echo $programID ?>">
                         <label class="<?php echo ($faculty_status=='Active')?'text-success':'text-danger'; ?> weight-600">
                             Faculties Information
                         </label>
