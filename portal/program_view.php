@@ -103,7 +103,25 @@
                     <form action="program_view.php" method="post">
                         <input type="hidden" name="txtPGID" value="<?php echo $programID ?>">
 
-                        <!-- code -->
+                        <!-- Department Information -->
+                        <label class="<?php echo ($department_status=='Active')?'text-success':'text-danger'; ?> weight-600">
+                            Department Information
+                        </label>
+
+                        <div class="form-group">
+                            <label>Department Name</label>
+                            <input class="form-control" type="text" value="<?php echo $department_name ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Founded Year</label>
+                            <input class="form-control" type="text" value="<?php echo $department_year ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <input class="form-control" type="text" value="<?php echo $department_status ?>" readonly>
+                        </div>
 
                         <div class="clearfix">
                             <div class="pull-left">
