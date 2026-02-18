@@ -42,7 +42,7 @@
         $department_ID = $data['DepartmentID'];
     }
 
-    if (isset($_POST['btnregister'])) 
+    if (isset($_POST['btnupdate'])) 
     {
         $PGID=$_POST['txtPGID'];
         $name=$_POST['txtname'];
@@ -50,19 +50,31 @@
         $start=$_POST['txtstart'];
         $lvl=$_POST['cbolvl'];
         $department=$_POST['cbodepartment'];
-        $status="Active";
+        $status=$_POST['cbostatus'];
+
+        // Check if program name already exists
+        $checkName = mysqli_query($connection, "
+            SELECT ProgramID 
+            FROM program 
+            WHERE Program_Name='$name' AND ProgramID != '$PGID'
+        ");
+        if (mysqli_num_rows($checkName) > 0) {
+            echo "<script>alert('This program name already exists. Please use a different name.')</script>";
+            echo "<script>location='program_list.php'</script>";
+            exit();
+        }
 
         // Validate duration year (1-9)
         if (!preg_match('/^[1-9]{1}$/', $duration)) {
             echo "<script>alert('Duration must be a single digit between 1 and 9 years')</script>";
-            echo "<script>location='program.php'</script>";
+            echo "<script>location='program_list.php'</script>";
             exit();
         }
 
         // Validate start year (YYYY)
         if (!preg_match('/^[0-9]{4}$/', $start)) {
             echo "<script>alert('Start Year must be a 4-digit year like 1999 or 2026')</script>";
-            echo "<script>location='program.php'</script>";
+            echo "<script>location='program_list.php'</script>";
             exit();
         }
 
@@ -78,33 +90,37 @@
         // Compare years
         if ($start < $departmentYear) {
             echo "<script>alert('Program start year cannot be earlier than its department founded year (Department founded: $departmentYear).')</script>";
-            echo "<script>location='program.php'</script>";
+            echo "<script>location='program_list.php'</script>";
             exit();
         }
 
-        $select=mysqli_query($connection,"SELECT * FROM program 
-                                                        WHERE Program_Name='$name'");
-        $count=mysqli_num_rows($select);
-        if ($count==0) 
-        {
-            $insert=mysqli_query($connection,"INSERT INTO program(ProgramID, DepartmentID, Program_Name, Degree_level, Duration_years, Start_year, Status) 
-                                                            VALUES('$PGID', '$department','$name', '$lvl', '$duration', '$start','$status')");
-            if ($insert) 
-            {
-                echo "<script>alert('Program Register Success!')</script>";
-                echo "<script>location='program_list.php'</script>";
-            }
+        // Re-check department status from DB
+        $checkDept = mysqli_query($connection, "
+            SELECT Status 
+            FROM department 
+            WHERE DepartmentID = '$department'
+        ");
+        $deptRow = mysqli_fetch_assoc($checkDept);
 
-            else
-            {
-                echo mysqli_error($connection);
-            }
+        if ($deptRow['Status'] == "Inactive") {
+            // Force program status to remain unchanged
+            $status = $program_status;
+        }
+
+        $update="UPDATE program
+                SET Program_Name='$name', Degree_level='$lvl', Duration_years='$duration', Start_year='$start', DepartmentID='$department', Status='$status'
+                WHERE ProgramID='$PGID'";
+        $run=mysqli_query($connection,$update);
+
+        if ($run) 
+        {
+            echo "<script>alert('Update Successful!')</script>";
+            echo "<script>location='program_list.php'</script>";
         }
 
         else
         {
-            echo "<script>alert('Program Already Exist!')</script>";
-            echo "<script>location='program.php'</script>";
+            echo mysqli_error($connection);
         }
     }
 ?>
@@ -156,7 +172,7 @@
                     </div>
 
                     <form action="program_update.php" method="post">
-                        <input type="hidden" name="txtPGID" value="<?php echo $departmentID ?>">
+                        <input type="hidden" name="txtPGID" value="<?php echo $programID ?>">
 
                         <div class="form-group">
                             <label>Department Name</label>
