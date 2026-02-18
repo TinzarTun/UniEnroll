@@ -65,9 +65,16 @@
                             </thead>
                             <tbody>
                                 <?php 
-                                    $select=mysqli_query($connection,"SELECT * 
-                                                                                    FROM program p, department d
-                                                                                    WHERE d.DepartmentID=p.DepartmentID");
+                                    $select=mysqli_query($connection,"SELECT 
+                                                                                        p.ProgramID,
+                                                                                        p.Program_Name,
+                                                                                        p.Degree_level,
+                                                                                        p.Duration_years,
+                                                                                        p.Status,
+                                                                                        d.Name AS Department_Name
+                                                                                    FROM program p
+                                                                                    JOIN department d 
+                                                                                        ON d.DepartmentID = p.DepartmentID");
                                     $count=mysqli_num_rows($select);
                                     for ($i = 0; $i < $count; $i++) 
                                     {
