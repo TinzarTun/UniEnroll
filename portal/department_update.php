@@ -84,9 +84,15 @@
         ");
         $facRow = mysqli_fetch_assoc($checkFaculty);
 
+        // Re-fetch department status inside POST
+        $currentDept = mysqli_query($connection, "
+            SELECT Status FROM department WHERE DepartmentID='$DID'
+        ");
+        $currentDeptRow = mysqli_fetch_assoc($currentDept);
+
         if ($facRow['Status'] == "Inactive") {
             // Force department status to remain unchanged
-            $status = $department_status;
+            $status = $currentDeptRow['Status'];
         }
 
         $update="UPDATE department
