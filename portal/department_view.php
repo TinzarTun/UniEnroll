@@ -81,26 +81,6 @@
                     <form action="department_view.php" method="post">
                         <input type="hidden" name="txtDID" value="<?php echo $departmentID ?>">
 
-                        <!-- Faculties Information -->
-                        <label class="<?php echo ($faculty_status=='Active')?'text-success':'text-danger'; ?> weight-600">
-                            Faculties Information
-                        </label>
-
-                        <div class="form-group">
-                            <label>Faculties Name</label>
-                            <input class="form-control" type="text" value="<?php echo $faculty_name ?>" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Founded Year</label>
-                            <input class="form-control" type="text" value="<?php echo $faculty_year ?>" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Status</label>
-                            <input class="form-control" type="text" value="<?php echo $faculty_status ?>" readonly>
-                        </div>
-
                         <!-- Department Information -->
                         <label class="<?php echo ($department_status=='Active')?'text-success':'text-danger'; ?> weight-600">
                             Department Information
@@ -119,6 +99,26 @@
                         <div class="form-group">
                             <label>Status</label>
                             <input class="form-control" type="text" value="<?php echo $department_status ?>" readonly>
+                        </div>
+
+                        <!-- Faculties Information -->
+                        <label class="<?php echo ($faculty_status=='Active')?'text-success':'text-danger'; ?> weight-600">
+                            Faculties Information
+                        </label>
+
+                        <div class="form-group">
+                            <label>Faculties Name</label>
+                            <input class="form-control" type="text" value="<?php echo $faculty_name ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Founded Year</label>
+                            <input class="form-control" type="text" value="<?php echo $faculty_year ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <input class="form-control" type="text" value="<?php echo $faculty_status ?>" readonly>
                         </div>
 
                         <div class="clearfix">
