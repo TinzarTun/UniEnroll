@@ -70,8 +70,7 @@
                                                                                         p.Program_Name,
                                                                                         p.Degree_level,
                                                                                         p.Duration_years,
-                                                                                        p.Status,
-                                                                                        d.Name AS Department_Name
+                                                                                        p.Status
                                                                                     FROM program p
                                                                                     JOIN department d 
                                                                                         ON d.DepartmentID = p.DepartmentID");
