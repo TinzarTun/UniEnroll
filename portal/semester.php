@@ -124,11 +124,11 @@
                         <div class="form-group">
                             <label>Program Name</label>
                             <select class="selectpicker form-control" name="cboprogram" required>
-                                <optio
+                                <option value="">Choose Program Name</option>
                                 
                                 <optgroup label="Active">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM program ORDER BY Name ASC");
+                                        $select=mysqli_query($connection,"SELECT * FROM program ORDER BY Program_Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
@@ -151,7 +151,7 @@
 
                                 <optgroup label="Inactive">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM program ORDER BY Name ASC");
+                                        $select=mysqli_query($connection,"SELECT * FROM program ORDER BY Program_Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
@@ -175,17 +175,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Program Name</label>
-                            <input class="form-control" type="text" name="txtname" placeholder="Please enter program name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Duration Years</label>
-                            <input class="form-control" type="text" name="txtduration" placeholder="e.g. 1,2,3,4" pattern="[1-9]{1}" maxlength="1" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Start Year</label>
+                            <label>Academic Year</label>
+                            <label>From</label>
+                            <input class="form-control" type="text" name="txtstart" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
+                            <label>To</label>
                             <input class="form-control" type="text" name="txtstart" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
                         </div>
 
