@@ -98,6 +98,16 @@
         $semester_no = $row['next_sem'];
         $semester_name = "Semester $semester_no";
 
+        // Check program duration limit
+        $ProgramDurationYears = $ProData['Duration_years']; // e.g., 4 years
+        $maxSemesters = $ProgramDurationYears * 2; // 2 semesters per year
+
+        if ($semester_no > $maxSemesters) {
+            echo "<script>alert('Cannot add Semester $semester_no. Maximum allowed semesters for this program is $maxSemesters.')</script>";
+            echo "<script>location='semester.php'</script>";
+            exit();
+        }
+
         // Check if semester already exists
         $checkDuplicate = mysqli_query($connection, "
             SELECT 1 
