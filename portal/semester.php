@@ -7,68 +7,15 @@
 
     if (isset($_POST['btnregister'])) 
     {
-        $PGID=$_POST['txtPGID'];
-        $name=$_POST['txtname'];
-        $duration=$_POST['txtduration'];
-        $start=$_POST['txtstart'];
-        $lvl=$_POST['cbolvl'];
-        $department=$_POST['cbodepartment'];
-        $status="Active";
-
-        // Validate duration year (1-9)
-        if (!preg_match('/^[1-9]{1}$/', $duration)) {
-            echo "<script>alert('Duration must be a single digit between 1 and 9 years')</script>";
-            echo "<script>location='program.php'</script>";
-            exit();
-        }
-
-        // Validate start year (YYYY)
-        if (!preg_match('/^[0-9]{4}$/', $start)) {
-            echo "<script>alert('Start Year must be a 4-digit year like 1999 or 2026')</script>";
-            echo "<script>location='program.php'</script>";
-            exit();
-        }
-
-        // Get department founded year
-        $depQuery = mysqli_query($connection, "
-            SELECT Founded_year 
-            FROM department 
-            WHERE DepartmentID = '$department'
-        ");
-        $depData = mysqli_fetch_assoc($depQuery);
-        $departmentYear = $depData['Founded_year'];
-
-        // Compare years
-        if ($start < $departmentYear) {
-            echo "<script>alert('Program start year cannot be earlier than its department founded year (Department founded: $departmentYear).')</script>";
-            echo "<script>location='program.php'</script>";
-            exit();
-        }
-
-        $select=mysqli_query($connection,"SELECT * FROM program 
-                                                        WHERE Program_Name='$name'");
-        $count=mysqli_num_rows($select);
-        if ($count==0) 
-        {
-            $insert=mysqli_query($connection,"INSERT INTO program(ProgramID, DepartmentID, Program_Name, Degree_level, Duration_years, Start_year, Status) 
-                                                            VALUES('$PGID', '$department','$name', '$lvl', '$duration', '$start','$status')");
-            if ($insert) 
-            {
-                echo "<script>alert('Program Register Success!')</script>";
-                echo "<script>location='program_list.php'</script>";
-            }
-
-            else
-            {
-                echo mysqli_error($connection);
-            }
-        }
-
-        else
-        {
-            echo "<script>alert('Program Already Exist!')</script>";
-            echo "<script>location='program.php'</script>";
-        }
+        $SMID=$_POST['txtSMID'];
+        $program=$_POST['cboprogram'];
+        $type=$_POST['cbotype'];
+        $year=$_POST['txtyear'];
+        $from=$_POST['txtfrom'];
+        $to=$_POST['txtto'];
+        $start=date('Y-m-d',strtotime($_POST['txtstart']));
+        $end=date('Y-m-d',strtotime($_POST['txtend']));
+        $status="Planned";
     }
 ?>
 
