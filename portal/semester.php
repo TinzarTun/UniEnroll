@@ -26,14 +26,14 @@
 
         // Validate academic year from (YYYY)
         if (!preg_match('/^[0-9]{4}$/', $from)) {
-            echo "<script>alert('Academic Year (From) must be a 4-digit year like 1999 or 2026')</script>";
+            echo "<script>alert('Academic (From) Year must be a 4-digit year like 1999 or 2026')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
 
         // Validate academic year to (YYYY)
         if (!preg_match('/^[0-9]{4}$/', $to)) {
-            echo "<script>alert('Academic Year (To) must be a 4-digit year like 1999 or 2026')</script>";
+            echo "<script>alert('Academic (To) Year must be a 4-digit year like 1999 or 2026')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
