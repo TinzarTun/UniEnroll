@@ -119,28 +119,31 @@
                     </div>
 
                     <form action="semester.php" method="post">
-                        <input type="hidden" name="txtPGID" value="<?php echo AutoID('program', 'ProgramID', 'PGID-', 4) ?>">
+                        <input type="hidden" name="txtSMID" value="<?php echo AutoID('semester', 'SemesterID', 'SMID-', 4) ?>">
 
                         <div class="form-group">
-                            <label>Department Name</label>
-                            <select class="selectpicker form-control" name="cbodepartment" required>
-                                <option value="">Choose Department Name</option>
+                            <label>Program Name</label>
+                            <select class="selectpicker form-control" name="cboprogram" required>
+                                <optio
                                 
                                 <optgroup label="Active">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM department ORDER BY Name ASC");
+                                        $select=mysqli_query($connection,"SELECT * FROM program ORDER BY Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
                                             $data=mysqli_fetch_array($select);
-                                            $departmentID=$data['DepartmentID'];
-                                            $departmentName=$data['Name'];
-                                            $departmentYear=$data['Founded_year'];
-                                            $DepartmentStatus=$data['Status'];
+                                            $programID=$data['ProgramID'];
+                                            $programName=$data['Program_Name'];
+                                            $degreeLevel=$data['Degree_level'];
+                                            $durationYears=$data['Duration_years'];
+                                            $programStatus=$data['Status'];
 
-                                            if($DepartmentStatus=="Active")
+                                            $yearText = ($durationYears > 1) ? 'years' : 'year';
+
+                                            if($programStatus=="Active")
                                             {
-                                                echo "<option value='$departmentID'>Department of $departmentName, $departmentYear</option>"; 
+                                                echo "<option value='$programID'>$programName, $degreeLevel, $durationYears $yearText</option>"; 
                                             }
                                         }
                                      ?>
@@ -148,19 +151,22 @@
 
                                 <optgroup label="Inactive">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM department ORDER BY Name ASC");
+                                        $select=mysqli_query($connection,"SELECT * FROM program ORDER BY Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
                                             $data=mysqli_fetch_array($select);
-                                            $departmentID=$data['DepartmentID'];
-                                            $departmentName=$data['Name'];
-                                            $departmentYear=$data['Founded_year'];
-                                            $departmentStatus=$data['Status'];
+                                            $programID=$data['ProgramID'];
+                                            $programName=$data['Program_Name'];
+                                            $degreeLevel=$data['Degree_level'];
+                                            $durationYears=$data['Duration_years'];
+                                            $programStatus=$data['Status'];
 
-                                            if($departmentStatus=="Inactive")
+                                            $yearText = ($durationYears > 1) ? 'years' : 'year';
+
+                                            if($programStatus=="Inactive")
                                             {
-                                                echo "<option disabled>Department of $departmentName, $departmentYear</option>";
+                                                echo "<option disabled>$programName, $degreeLevel, $durationYears $yearText</option>";
                                             }
                                         }
                                      ?>
@@ -171,16 +177,6 @@
                         <div class="form-group">
                             <label>Program Name</label>
                             <input class="form-control" type="text" name="txtname" placeholder="Please enter program name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Degree Level</label>
-                            <select class="selectpicker form-control" name="cbolvl" required>
-                                <option value='Diploma'>Diploma</option>
-                                <option value='Bachelor'>Bachelor</option>
-                                <option value='Master'>Master</option>
-                                <option value='PhD'>PhD</option>
-                            </select>
                         </div>
 
                         <div class="form-group">
