@@ -214,6 +214,24 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="font-weight-bold">Start Date & End Date</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label >Start :</label>
+                                        <input class="form-control date-picker" type="text" name="txtstart" placeholder="Select Start Date" value="<?php echo date('Y-m-d') ?>" OnClick="showCalender(calender,this)" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label >End :</label>
+                                        <input class="form-control date-picker" type="text" name="txtend" placeholder="Select End Date" value="<?php echo date('Y-m-d') ?>" OnClick="showCalender(calender,this)" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="clearfix">
                             <div class="pull-left">
                                 <p class="mb-30 font-14"></p>
