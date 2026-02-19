@@ -18,42 +18,42 @@
         $status="Planned";
 
         if ($start >= $end) {
-            echo "<script>alert('Semester End Date must be after Semester Start Date')</script>";
+            echo "<script>alert('The semester end date must be later than the start date. Please correct the dates.')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
 
         // Validate intake year (YYYY)
         if (!preg_match('/^[0-9]{4}$/', $year)) {
-            echo "<script>alert('Intake Year must be a 4-digit year like 1999 or 2026')</script>";
+            echo "<script>alert('Please enter a valid 4-digit year for the intake (e.g. 2026).')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
 
         // Validate academic year from (YYYY)
         if (!preg_match('/^[0-9]{4}$/', $from)) {
-            echo "<script>alert('Academic (From) Year must be a 4-digit year like 1999 or 2026')</script>";
+            echo "<script>alert('Please enter a valid 4-digit year for the academic start year (e.g. 2026).')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
 
         // Validate academic year to (YYYY)
         if (!preg_match('/^[0-9]{4}$/', $to)) {
-            echo "<script>alert('Academic (To) Year must be a 4-digit year like 1999 or 2026')</script>";
+            echo "<script>alert('Please enter a valid 4-digit year for the academic end year (e.g. 2026).')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
 
         // To prevent wrong order
         if ($from >= $to) {
-            echo "<script>alert('Academic Year (To) must be greater than Academic Year (From)')</script>";
+            echo "<script>alert('The academic end year must be later than the start year. Please correct it.')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
 
         // Get program start year
         $proQuery = mysqli_query($connection, "
-            SELECT Start_year 
+            SELECT Start_year, Duration_years
             FROM program 
             WHERE ProgramID = '$program'
         ");
@@ -67,19 +67,19 @@
 
         // Compare years
         if ($year < $ProgramYear) {
-            echo "<script>alert('Semester intake year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
+            echo "<script>alert('The intake year cannot be earlier than the program start year ($ProgramYear). Please choose a valid year.')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
 
         if ($from < $ProgramYear) {
-            echo "<script>alert('Semester academic (From) year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
+            echo "<script>alert('The academic start year cannot be earlier than the program start year ($ProgramYear).')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
 
         if ($to < $ProgramYear) {
-            echo "<script>alert('Semester academic (To) year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
+            echo "<script>alert('The academic end year cannot be earlier than the program start year ($ProgramYear).')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
@@ -103,7 +103,7 @@
         $maxSemesters = $ProgramDurationYears * 2; // 2 semesters per year
 
         if ($semester_no > $maxSemesters) {
-            echo "<script>alert('Cannot add Semester $semester_no. Maximum allowed semesters for this program is $maxSemesters.')</script>";
+            echo "<script>alert('You cannot add Semester $semester_no because this program only allows up to $maxSemesters semesters.')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
@@ -120,7 +120,7 @@
 
         if (mysqli_num_rows($checkDuplicate) > 0) 
         {
-            echo "<script>alert('Semester Already Exist!')</script>";
+            echo "<script>alert('This semester already exists for the selected program and intake.')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
         }
