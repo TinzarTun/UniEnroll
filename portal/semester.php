@@ -17,6 +17,12 @@
         $end=date('Y-m-d',strtotime($_POST['txtend']));
         $status="Planned";
 
+        if ($start >= $end) {
+            echo "<script>alert('Semester End Date must be after Semester Start Date')</script>";
+            echo "<script>location='semester.php'</script>";
+            exit();
+        }
+
         // Validate intake year (YYYY)
         if (!preg_match('/^[0-9]{4}$/', $year)) {
             echo "<script>alert('Intake Year must be a 4-digit year like 1999 or 2026')</script>";
@@ -38,6 +44,13 @@
             exit();
         }
 
+        // To prevent wrong order
+        if ($from >= $to) {
+            echo "<script>alert('Academic Year (To) must be greater than Academic Year (From)')</script>";
+            echo "<script>location='semester.php'</script>";
+            exit();
+        }
+
         // Get program start year
         $proQuery = mysqli_query($connection, "
             SELECT Start_year 
@@ -45,26 +58,81 @@
             WHERE ProgramID = '$program'
         ");
         $ProData = mysqli_fetch_assoc($proQuery);
+        if (!$ProData) {
+            echo "<script>alert('Invalid Program Selected')</script>";
+            echo "<script>location='semester.php'</script>";
+            exit();
+        }
         $ProgramYear = $ProData['Start_year'];
-    }
 
-    // Compare years
-    if ($year < $ProgramYear) {
-        echo "<script>alert('Semester intake year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
-        echo "<script>location='semester.php'</script>";
-        exit();
-    }
+        // Compare years
+        if ($year < $ProgramYear) {
+            echo "<script>alert('Semester intake year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
+            echo "<script>location='semester.php'</script>";
+            exit();
+        }
 
-    if ($from < $ProgramYear) {
-        echo "<script>alert('Semester academic (From) year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
-        echo "<script>location='semester.php'</script>";
-        exit();
-    }
+        if ($from < $ProgramYear) {
+            echo "<script>alert('Semester academic (From) year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
+            echo "<script>location='semester.php'</script>";
+            exit();
+        }
 
-    if ($to < $ProgramYear) {
-        echo "<script>alert('Semester academic (To) year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
-        echo "<script>location='semester.php'</script>";
-        exit();
+        if ($to < $ProgramYear) {
+            echo "<script>alert('Semester academic (To) year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
+            echo "<script>location='semester.php'</script>";
+            exit();
+        }
+
+        // Build intake name & academic year
+        $intakeName= $type.' '.$year; // Fall 2026
+        $academicYear= $from.'-'.$to; //2025-2026
+
+        // Get next semester number for this program + intake
+        $query = mysqli_query($connection,
+            "SELECT IFNULL(MAX(Semester),0)+1 AS next_sem
+            FROM semester
+            WHERE ProgramID='$program' 
+            AND Intake_name='$intakeName'");
+        $row = mysqli_fetch_assoc($query);
+        $semester_no = $row['next_sem'];
+        $semester_name = "Semester $semester_no";
+
+        // Check if semester already exists
+        $checkDuplicate = mysqli_query($connection, "
+            SELECT 1 
+            FROM semester 
+            WHERE ProgramID = '$program'
+              AND Intake_name = '$intakeName'
+              AND Semester = '$semester_no'
+            LIMIT 1
+        ");
+
+        if (mysqli_num_rows($checkDuplicate) > 0) 
+        {
+            echo "<script>alert('Semester Already Exist!')</script>";
+            echo "<script>location='semester.php'</script>";
+            exit();
+        }
+
+        else 
+        {
+            $insert=mysqli_query($connection,"INSERT INTO semester
+                                                            (SemesterID, ProgramID, Intake_type, Intake_name, Semester, Semester_name, Academic_year, Start_date, End_date, Status)
+                                                            VALUES
+                                                            ('$SMID','$program','$type','$intakeName',$semester_no,'$semester_name','$academicYear','$start','$end','$status')"
+                                                            );
+            if ($insert) 
+            {
+                echo "<script>alert('Semester Register Success!')</script>";
+                echo "<script>location='semester_list.php'</script>";
+            }
+
+            else
+            {
+                echo mysqli_error($connection);
+            }
+        }
     }
 ?>
 
@@ -211,18 +279,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="font-weight-bold">Start Date & End Date</label>
+                            <label class="font-weight-bold">Semester Start & End Date</label>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label >Start :</label>
-                                        <input class="form-control date-picker" type="text" name="txtstart" placeholder="Select Start Date" value="<?php echo date('Y-m-d') ?>" OnClick="showCalender(calender,this)" required>
+                                        <label >Start Date :</label>
+                                        <input class="form-control date-picker" type="text" name="txtstart" placeholder="Select Start Date" value="<?php echo date('Y-m-d') ?>" onClick="showCalender(calender,this)" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label >End :</label>
-                                        <input class="form-control date-picker" type="text" name="txtend" placeholder="Select End Date" value="<?php echo date('Y-m-d') ?>" OnClick="showCalender(calender,this)" required>
+                                        <label >End Date :</label>
+                                        <input class="form-control date-picker" type="text" name="txtend" placeholder="Select End Date" value="<?php echo date('Y-m-d') ?>" onClick="showCalender(calender,this)" required>
                                     </div>
                                 </div>
                             </div>
