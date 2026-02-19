@@ -175,18 +175,40 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="font-weight-bold">Intake Name</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label >Type :</label>
+                                        <select class="selectpicker form-control" name="cbotype" required>
+                                            <option value='Fall'>Fall</option>
+                                            <option value='Spring'>Spring</option>
+                                            <option value='Summer'>Summer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label >Year :</label>
+                                        <input class="form-control" type="text" name="txtyear" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="font-weight-bold">Academic Year</label>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label >From :</label>
-                                        <input class="form-control" type="text" name="txtAfrom" placeholder="YYYY (e.g. 2025)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2025)" required>
+                                        <input class="form-control" type="text" name="txtfrom" placeholder="YYYY (e.g. 2025)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2025)" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label >To :</label>
-                                        <input class="form-control" type="text" name="txtAto" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
+                                        <input class="form-control" type="text" name="txtto" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
                                     </div>
                                 </div>
                             </div>
