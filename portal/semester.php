@@ -37,6 +37,34 @@
             echo "<script>location='semester.php'</script>";
             exit();
         }
+
+        // Get program start year
+        $proQuery = mysqli_query($connection, "
+            SELECT Start_year 
+            FROM program 
+            WHERE ProgramID = '$program'
+        ");
+        $ProData = mysqli_fetch_assoc($proQuery);
+        $ProgramYear = $ProData['Start_year'];
+    }
+
+    // Compare years
+    if ($year < $ProgramYear) {
+        echo "<script>alert('Semester intake year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
+        echo "<script>location='semester.php'</script>";
+        exit();
+    }
+
+    if ($from < $ProgramYear) {
+        echo "<script>alert('Semester academic (From) year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
+        echo "<script>location='semester.php'</script>";
+        exit();
+    }
+
+    if ($to < $ProgramYear) {
+        echo "<script>alert('Semester academic (To) year cannot be earlier than its program start year (Program started: $ProgramYear).')</script>";
+        echo "<script>location='semester.php'</script>";
+        exit();
     }
 ?>
 
