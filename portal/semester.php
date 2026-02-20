@@ -202,7 +202,15 @@
                                 
                                 <optgroup label="Active">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM program ORDER BY Program_Name ASC");
+                                        $select=mysqli_query($connection,"SELECT * FROM program 
+                                                                                        ORDER BY 
+                                                                                        CASE Degree_level
+                                                                                            WHEN 'Diploma' THEN 1
+                                                                                            WHEN 'Bachelor' THEN 2
+                                                                                            WHEN 'Master' THEN 3
+                                                                                            WHEN 'PhD' THEN 4
+                                                                                        END,
+                                                                                        Program_Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
@@ -217,7 +225,7 @@
 
                                             if($programStatus=="Active")
                                             {
-                                                echo "<option value='$programID'>$programName, $degreeLevel, $durationYears $yearText</option>"; 
+                                                echo "<option value='$programID'>$programName, $durationYears $yearText $degreeLevel</option>"; 
                                             }
                                         }
                                      ?>
@@ -225,7 +233,15 @@
 
                                 <optgroup label="Inactive">
                                     <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM program ORDER BY Program_Name ASC");
+                                        $select=mysqli_query($connection,"SELECT * FROM program 
+                                                                                        ORDER BY 
+                                                                                        CASE Degree_level
+                                                                                            WHEN 'Diploma' THEN 1
+                                                                                            WHEN 'Bachelor' THEN 2
+                                                                                            WHEN 'Master' THEN 3
+                                                                                            WHEN 'PhD' THEN 4
+                                                                                        END,
+                                                                                        Program_Name ASC");
                                         $count=mysqli_num_rows($select);
                                         for ($i=0; $i < $count; $i++) 
                                         { 
@@ -240,7 +256,7 @@
 
                                             if($programStatus=="Inactive")
                                             {
-                                                echo "<option disabled>$programName, $degreeLevel, $durationYears $yearText</option>";
+                                                echo "<option disabled>$programName, $durationYears $yearText $degreeLevel</option>";
                                             }
                                         }
                                      ?>
