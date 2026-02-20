@@ -94,17 +94,26 @@
                                             echo "<td>$iname</td>";
                                             echo "<td>$sname</td>";
                                             echo "<td>$ayear</td>";
-                                            echo "<td>$status</td>";
-                                                
-                                            // if($status=="Active")
-                                            // {
-                                            //     echo "<td><span class='badge badge-success'>Active</span></td>";
-                                            // }
 
-                                            // if($status=="Inactive")
-                                            // {
-                                            //     echo "<td><span class='badge badge-secondary'>Inactive</span></td>";
-                                            // }
+                                            if($status=="Planned")
+                                            {
+                                                echo "<td><span class='badge badge-primary'>Planned</span></td>";
+                                            }
+                                                
+                                            if($status=="Ongoing")
+                                            {
+                                                echo "<td><span class='badge badge-success'>Ongoing</span></td>";
+                                            }
+
+                                            if($status=="Completed")
+                                            {
+                                                echo "<td><span class='badge badge-info'>Completed</span></td>";
+                                            }
+
+                                            if($status=="Cancelled")
+                                            {
+                                                echo "<td><span class='badge badge-danger'>Cancelled</span></td>";
+                                            }
 
                                             echo "<td>
                                                 <div class='dropdown'>
