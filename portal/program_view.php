@@ -46,6 +46,7 @@
             $department_name  = $data['department_name'];
             $department_year  = $data['department_year'];
             $department_status= $data['department_status'];
+            $yearText = ($department_year > 1) ? 'years' : 'year';
 
             // Faculty
             $faculty_name     = $data['faculty_name'];
@@ -119,8 +120,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Duration Years</label>
-                            <input class="form-control" type="text" value="<?php echo $duration_years ?>" readonly>
+                            <label>Duration</label>
+                            <input class="form-control" type="text" value="<?php echo $duration_years ?> <?php echo $yearText ?>" readonly>
                         </div>
 
                         <div class="form-group">
