@@ -57,8 +57,9 @@
                                 <tr>
                                     <th class="table-plus datatable-nosort">#</th>
                                     <th>Program Name</th>
-                                    <th>Degree Level</th>
-                                    <th>Duration</th>
+                                    <th>Intake</th>
+                                    <th>Semester</th>
+                                    <th>Academic Year</th>
                                     <th>Status</th>
                                     <th class="datatable-nosort">Action</th>
                                 </tr>
@@ -66,40 +67,44 @@
                             <tbody>
                                 <?php 
                                     $select=mysqli_query($connection,"SELECT 
-                                                                                        p.ProgramID,
+                                                                                        s.SemesterID,
+                                                                                        s.Intake_name,
+                                                                                        s.Semester_name,
+                                                                                        s.Academic_year,
+                                                                                        s.Status AS semester_status,
                                                                                         p.Program_Name,
-                                                                                        p.Degree_level,
-                                                                                        p.Duration_years,
-                                                                                        p.Status
-                                                                                    FROM program p
-                                                                                    JOIN department d 
-                                                                                        ON d.DepartmentID = p.DepartmentID");
+                                                                                        p.Status AS program_status
+                                                                                    FROM semester s
+                                                                                    JOIN program p
+                                                                                        ON s.ProgramID = p.ProgramID");
                                     $count=mysqli_num_rows($select);
                                     for ($i = 0; $i < $count; $i++) 
                                     {
                                         $data = mysqli_fetch_array($select);
-                                        $pgid = $data['ProgramID'];
+                                        $smid = $data['SemesterID'];
                                         $pname = $data['Program_Name'];
-                                        $dlevel = $data['Degree_level'];
-                                        $duration = $data['Duration_years'];
-                                        $yearText = ($duration > 1) ? 'years' : 'year';
-                                        $status = $data['Status'];
+                                        $iname = $data['Intake_name'];
+                                        $sname = $data['Semester_name'];
+                                        $ayear = $data['Academic_year'];
+                                        $status = $data['semester_status'];
 
                                         echo "<tr>";
-                                            echo "<td class='table-plus'>$pgid</td>";
+                                            echo "<td class='table-plus'>$smid</td>";
                                             echo "<td>$pname</td>";
-                                            echo "<td>$dlevel</td>";
-                                            echo "<td>$duration $yearText</td>";
+                                            echo "<td>$iname</td>";
+                                            echo "<td>$sname</td>";
+                                            echo "<td>$ayear</td>";
+                                            echo "<td>$status</td>";
                                                 
-                                            if($status=="Active")
-                                            {
-                                                echo "<td><span class='badge badge-success'>Active</span></td>";
-                                            }
+                                            // if($status=="Active")
+                                            // {
+                                            //     echo "<td><span class='badge badge-success'>Active</span></td>";
+                                            // }
 
-                                            if($status=="Inactive")
-                                            {
-                                                echo "<td><span class='badge badge-secondary'>Inactive</span></td>";
-                                            }
+                                            // if($status=="Inactive")
+                                            // {
+                                            //     echo "<td><span class='badge badge-secondary'>Inactive</span></td>";
+                                            // }
 
                                             echo "<td>
                                                 <div class='dropdown'>
