@@ -54,7 +54,7 @@
             $semester_name     = $data['Semester_name'];
             $academic_year     = $data['Academic_year'];
             $start_date        = $data['Start_date'];
-            $End_date          = $data['End_date'];
+            $end_date          = $data['End_date'];
             $semester_status   = $data['semester_status'];
 
             // Program
@@ -133,6 +133,46 @@
                                             elseif ($semester_status=='Cancelled') echo 'text-danger';?> weight-600">
                             Semester Information
                         </label>
+
+                        <div class="form-group">
+                            <label>Intake Type</label>
+                            <input class="form-control" type="text" value="<?php echo $intake_type ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Intake Name</label>
+                            <input class="form-control" type="text" value="<?php echo $intake_name ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Semester Number</label>
+                            <input class="form-control" type="text" value="<?php echo $semester ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Semester Name</label>
+                            <input class="form-control" type="text" value="<?php echo $semester_name ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Academic Year</label>
+                            <input class="form-control" type="text" value="<?php echo $academic_year ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Semester Start Date</label>
+                            <input class="form-control" type="text" value="<?php echo $start_date ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Semester End Date</label>
+                            <input class="form-control" type="text" value="<?php echo $end_date ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <input class="form-control" type="text" value="<?php echo $semester_status ?>" readonly>
+                        </div>
 
                         <!-- Program Information -->
                         <label class="<?php echo ($program_status=='Active')?'text-success':'text-danger'; ?> weight-600">
