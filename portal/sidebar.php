@@ -12,15 +12,59 @@
   <div class="menu-block customscroll">
     <div class="sidebar-menu">
       <ul id="accordion-menu">
+        <!-- Home -->
+        <li>
+          <a href="dashboard.php" class="dropdown-toggle no-arrow">
+            <span class="micon dw dw-house-1"></span>
+            <span class="mtext">Home</span>
+          </a>
+        </li>
+
+        <!-- Member -->
         <li class="dropdown">
           <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon dw dw-house-1"></span
-            ><span class="mtext">Home</span>
+            <span class="micon dw dw-id-card2"></span>
+            <span class="mtext">Member</span>
           </a>
           <ul class="submenu">
-            <li><a href="index.html">Home 1</a></li>
-            <li><a href="index2.html">Home 2</a></li>
+            <li><a href="role_list.php">Role</a></li>
+            <li><a href="users_list.php">Users</a></li>
           </ul>
+        </li>
+
+        <!-- Academic -->
+        <li class="dropdown">
+          <a href="javascript:;" class="dropdown-toggle">
+            <span class="micon dw dw-apartment"></span>
+            <span class="mtext">Academic</span>
+          </a>
+          <ul class="submenu">
+            <li><a href="faculties_list.php">Faculties</a></li>
+            <li><a href="department_list.php">Department</a></li>
+          </ul>
+        </li>
+
+        <!-- Program -->
+        <li>
+          <a href="program_list.php" class="dropdown-toggle no-arrow">
+            <span class="micon dw dw-book-1"></span>
+            <span class="mtext">Program</span>
+          </a>
+        </li>
+
+        <!-- Semester -->
+        <li>
+          <a href="semester_list.php" class="dropdown-toggle no-arrow">
+            <span class="micon dw dw-calendar1"></span>
+            <span class="mtext">Semester</span>
+          </a>
+        </li>
+
+        <li>
+          <div class="dropdown-divider"></div>
+        </li>
+        <li>
+          <div class="sidebar-small-cap">Extra</div>
         </li>
 
         <li class="dropdown">
@@ -56,38 +100,6 @@
             <li><a href="javascript:;">Level 1</a></li>
             <li><a href="javascript:;">Level 1</a></li>
             <li><a href="javascript:;">Level 1</a></li>
-          </ul>
-        </li>
-
-        <li>
-          <a href="chat.html" class="dropdown-toggle no-arrow">
-            <span class="micon dw dw-chat3"></span
-            ><span class="mtext">Chat</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="invoice.html" class="dropdown-toggle no-arrow">
-            <span class="micon dw dw-invoice"></span
-            ><span class="mtext">Invoice</span>
-          </a>
-        </li>
-
-        <li>
-          <div class="dropdown-divider"></div>
-        </li>
-        <li>
-          <div class="sidebar-small-cap">Extra</div>
-        </li>
-
-        <li class="dropdown">
-          <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon dw dw-library"></span
-            ><span class="mtext">Sample</span>
-          </a>
-          <ul class="submenu">
-            <li><a href="basic-table.html">Sample 1</a></li>
-            <li><a href="datatable.html">Sample 2</a></li>
           </ul>
         </li>
         
