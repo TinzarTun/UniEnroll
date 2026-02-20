@@ -58,7 +58,7 @@
                                     <th class="table-plus datatable-nosort">#</th>
                                     <th>Program Name</th>
                                     <th>Degree Level</th>
-                                    <th>Duration Years</th>
+                                    <th>Duration</th>
                                     <th>Status</th>
                                     <th class="datatable-nosort">Action</th>
                                 </tr>
@@ -82,13 +82,14 @@
                                         $pname = $data['Program_Name'];
                                         $dlevel = $data['Degree_level'];
                                         $duration = $data['Duration_years'];
+                                        $yearText = ($duration > 1) ? 'years' : 'year';
                                         $status = $data['Status'];
 
                                         echo "<tr>";
                                             echo "<td class='table-plus'>$pgid</td>";
                                             echo "<td>$pname</td>";
                                             echo "<td>$dlevel</td>";
-                                            echo "<td>$duration</td>";
+                                            echo "<td>$duration $yearText</td>";
                                                 
                                             if($status=="Active")
                                             {
