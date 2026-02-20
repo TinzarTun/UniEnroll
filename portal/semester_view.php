@@ -126,6 +126,14 @@
                     <form action="semester_view.php" method="post">
                         <input type="hidden" name="txtSMID" value="<?php echo $semesterID ?>">
 
+                        <!-- Semester Information -->
+                        <label class="<?php if ($semester_status=='Planned')   echo 'text-primary';
+                                            elseif ($semester_status=='Ongoing') echo 'text-success';
+                                            elseif ($semester_status=='Completed') echo 'text-info';
+                                            elseif ($semester_status=='Cancelled') echo 'text-danger';?> weight-600">
+                            Semester Information
+                        </label>
+
                         <!-- Program Information -->
                         <label class="<?php echo ($program_status=='Active')?'text-success':'text-danger'; ?> weight-600">
                             Program Information
