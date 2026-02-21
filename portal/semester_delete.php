@@ -9,6 +9,13 @@ if (isset($_REQUEST['smid']))
 {
     $semesterID=$_REQUEST['smid'];
 
+    $check = mysqli_query($connection, "
+        SELECT Status
+        FROM semester
+        WHERE SemesterID='$semesterID'
+    ");
+    $row = mysqli_fetch_assoc($check);
+
     // safe delete
     $delete="DELETE FROM semester
              WHERE SemesterID='$semesterID'";
