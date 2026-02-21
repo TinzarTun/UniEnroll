@@ -120,6 +120,15 @@
 
         if ($run) 
         {
+            // If program is set to Inactive → cancel planned semesters
+            if ($status == "Inactive") {
+                mysqli_query($connection, "
+                    UPDATE semester
+                    SET Status = 'Cancelled'
+                    WHERE ProgramID = '$PGID'
+                    AND Status = 'Planned'
+                ");
+            }
             echo "<script>alert('Update Successful!')</script>";
             echo "<script>location='program_list.php'</script>";
         }
