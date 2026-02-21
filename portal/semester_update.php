@@ -49,11 +49,6 @@
     if (isset($_POST['btnupdate'])) 
     {
         $SMID=$_POST['txtSMID'];
-        $program=$_POST['cboprogram'];
-        $type=$_POST['cbotype'];
-        $year=$_POST['txtyear'];
-        $from=$_POST['txtfrom'];
-        $to=$_POST['txtto'];
         $start=date('Y-m-d',strtotime($_POST['txtstart']));
         $end=date('Y-m-d',strtotime($_POST['txtend']));
         $status="Planned";
@@ -62,127 +57,6 @@
             echo "<script>alert('The semester end date must be later than the start date. Please correct the dates.')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
-        }
-
-        // Validate intake year (YYYY)
-        if (!preg_match('/^[0-9]{4}$/', $year)) {
-            echo "<script>alert('Please enter a valid 4-digit year for the intake (e.g. 2026).')</script>";
-            echo "<script>location='semester.php'</script>";
-            exit();
-        }
-
-        // Validate academic year from (YYYY)
-        if (!preg_match('/^[0-9]{4}$/', $from)) {
-            echo "<script>alert('Please enter a valid 4-digit year for the academic start year (e.g. 2026).')</script>";
-            echo "<script>location='semester.php'</script>";
-            exit();
-        }
-
-        // Validate academic year to (YYYY)
-        if (!preg_match('/^[0-9]{4}$/', $to)) {
-            echo "<script>alert('Please enter a valid 4-digit year for the academic end year (e.g. 2026).')</script>";
-            echo "<script>location='semester.php'</script>";
-            exit();
-        }
-
-        // To prevent wrong order
-        if ($from >= $to) {
-            echo "<script>alert('The academic end year must be later than the start year. Please correct it.')</script>";
-            echo "<script>location='semester.php'</script>";
-            exit();
-        }
-
-        // Get program start year
-        $proQuery = mysqli_query($connection, "
-            SELECT Start_year, Duration_years
-            FROM program 
-            WHERE ProgramID = '$program'
-        ");
-        $ProData = mysqli_fetch_assoc($proQuery);
-        if (!$ProData) {
-            echo "<script>alert('Invalid Program Selected')</script>";
-            echo "<script>location='semester.php'</script>";
-            exit();
-        }
-        $ProgramYear = $ProData['Start_year'];
-
-        // Compare years
-        if ($year < $ProgramYear) {
-            echo "<script>alert('The intake year cannot be earlier than the program start year ($ProgramYear). Please choose a valid year.')</script>";
-            echo "<script>location='semester.php'</script>";
-            exit();
-        }
-
-        if ($from < $ProgramYear) {
-            echo "<script>alert('The academic start year cannot be earlier than the program start year ($ProgramYear).')</script>";
-            echo "<script>location='semester.php'</script>";
-            exit();
-        }
-
-        if ($to < $ProgramYear) {
-            echo "<script>alert('The academic end year cannot be earlier than the program start year ($ProgramYear).')</script>";
-            echo "<script>location='semester.php'</script>";
-            exit();
-        }
-
-        // Build intake name & academic year
-        $intakeName= $type.' '.$year; // Fall 2026
-        $academicYear= $from.'-'.$to; //2025-2026
-
-        // Get next semester number for this program + intake
-        $query = mysqli_query($connection,
-            "SELECT IFNULL(MAX(Semester),0)+1 AS next_sem
-            FROM semester
-            WHERE ProgramID='$program' 
-            AND Intake_name='$intakeName'");
-        $row = mysqli_fetch_assoc($query);
-        $semester_no = $row['next_sem'];
-        $semester_name = "Semester $semester_no";
-
-        // Check program duration limit
-        $ProgramDurationYears = $ProData['Duration_years']; // e.g., 4 years
-        $maxSemesters = $ProgramDurationYears * 2; // 2 semesters per year
-
-        if ($semester_no > $maxSemesters) {
-            echo "<script>alert('You cannot add Semester $semester_no because this program only allows up to $maxSemesters semesters.')</script>";
-            echo "<script>location='semester.php'</script>";
-            exit();
-        }
-
-        // Check if semester already exists
-        $checkDuplicate = mysqli_query($connection, "
-            SELECT 1 
-            FROM semester 
-            WHERE ProgramID = '$program'
-              AND Intake_name = '$intakeName'
-              AND Semester = '$semester_no'
-            LIMIT 1
-        ");
-
-        if (mysqli_num_rows($checkDuplicate) > 0) 
-        {
-            echo "<script>alert('This semester already exists for the selected program and intake.')</script>";
-            echo "<script>location='semester.php'</script>";
-            exit();
-        }
-
-        else 
-        {
-            $insert=mysqli_query($connection,"INSERT INTO semester
-                                                            (SemesterID, ProgramID, Intake_type, Intake_name, Semester, Semester_name, Academic_year, Start_date, End_date, Status)
-                                                            VALUES
-                                                            ('$SMID','$program','$type','$intakeName',$semester_no,'$semester_name','$academicYear','$start','$end','$status')"
-                                                            );
-            if ($insert) 
-            {
-                echo "<script>alert('Semester Register Success!')</script>";
-                echo "<script>location='semester_list.php'</script>";
-            }
-
-            else
-            {
-                echo mysqli_error($connection);
-            }
         }
     }
 ?>
@@ -272,6 +146,44 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <?php if ($program_status == "Inactive") { ?>
+                                <!-- Program inactive → status locked -->
+                                <input type="text" class="form-control" value="<?php echo $semester_status ?>" readonly>
+                                <input type="hidden" name="cbostatus" value="<?php echo $semester_status ?>">
+                                <small class="text-danger">
+                                    Semester status cannot be changed because the program is inactive.
+                                </small>
+                            <?php } else { ?>
+                                <!-- Program active → editable -->
+                                <select class="selectpicker form-control" name="cbostatus" required>
+                                    <option><?php echo $semester_status ?></option>
+                                    <?php 
+                                        if($semester_status!="Planned")
+                                        {
+                                            echo"<option value='Planned'>Planned</option>";
+                                        }
+
+                                        if($semester_status!="Ongoing")
+                                        {
+                                            echo"<option value='Ongoing'>Ongoing</option>";
+                                        }
+
+                                        if($semester_status!="Completed")
+                                        {
+                                            echo"<option value='Completed'>Completed</option>";
+                                        }
+
+                                        if($semester_status!="Cancelled")
+                                        {
+                                            echo"<option value='Cancelled'>Cancelled</option>";
+                                        }
+                                    ?>
+                                </select>
+                            <?php } ?>
                         </div>
 
                         <div class="clearfix">
