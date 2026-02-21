@@ -16,6 +16,18 @@ if (isset($_REQUEST['smid']))
     ");
     $row = mysqli_fetch_assoc($check);
 
+    if (!$row) {
+        echo "<script>alert('Semester not found!')</script>";
+        echo "<script>location='semester_list.php'</script>";
+        exit();
+    }
+
+    if ($row['Status'] == 'Ongoing' || $row['Status'] == 'Completed') {
+        echo "<script>alert('Ongoing or Completed semesters cannot be deleted')</script>";
+        echo "<script>location='semester_list.php'</script>";
+        exit();
+    }
+
     // safe delete
     $delete="DELETE FROM semester
              WHERE SemesterID='$semesterID'";
