@@ -23,6 +23,7 @@
             exit();
         }
 
+        // If no linked semesters, safe to delete
         $delete="DELETE FROM program
                 WHERE ProgramID='$programID'";
         $run=mysqli_query($connection,$delete);
