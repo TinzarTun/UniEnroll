@@ -41,12 +41,12 @@
             $duration_years   = $data['Duration_years'];
             $start_year       = $data['Start_year'];
             $program_status   = $data['program_status'];
+            $yearText = ($duration_years > 1) ? 'years' : 'year';
 
             // Department
             $department_name  = $data['department_name'];
             $department_year  = $data['department_year'];
             $department_status= $data['department_status'];
-            $yearText = ($department_year > 1) ? 'years' : 'year';
 
             // Faculty
             $faculty_name     = $data['faculty_name'];

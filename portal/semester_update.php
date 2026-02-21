@@ -5,6 +5,47 @@
     include("../includes/Browsing_Functions.php");
     recordbrowse("http://localhost/UniEnroll/portal/semester_update.php");
 
+    if (isset($_REQUEST['smid'])) 
+    {
+        $semesterID=$_REQUEST['smid'];
+
+        $select=mysqli_query($connection,"SELECT 
+                                                            s.SemesterID,
+                                                            s.Intake_name,
+                                                            s.Semester_name,
+                                                            s.Academic_year,
+                                                            s.Start_date,
+                                                            s.End_date,
+                                                            s.Status AS semester_status,
+
+                                                            p.ProgramID,
+                                                            p.Program_Name,
+                                                            p.Degree_level,
+                                                            p.Duration_years,
+                                                            p.Status AS program_status
+                                                        FROM semester s
+                                                        JOIN program p 
+                                                            ON s.ProgramID = p.ProgramID
+
+                                                        WHERE s.SemesterID = '$semesterID'");
+        $data=mysqli_fetch_array($select);
+
+        // Semester
+        $intake_name       = $data['Intake_name'];
+        $semester_name     = $data['Semester_name'];
+        $academic_year     = $data['Academic_year'];
+        $start_date        = $data['Start_date'];
+        $end_date          = $data['End_date'];
+        $semester_status   = $data['semester_status'];
+
+        // Program
+        $program_name     = $data['Program_Name'];
+        $degree_level     = $data['Degree_level'];
+        $duration_years   = $data['Duration_years'];
+        $program_status   = $data['program_status'];
+        $yearText         = ($duration_years > 1) ? 'years' : 'year';
+    }
+
     if (isset($_POST['btnupdate'])) 
     {
         $SMID=$_POST['txtSMID'];
@@ -193,115 +234,26 @@
                     </div>
 
                     <form action="semester_update.php" method="post">
-                        <input type="hidden" name="txtSMID" value="<?php echo AutoID('semester', 'SemesterID', 'SMID-', 4) ?>">
+                        <input type="hidden" name="txtSMID" value="<?php echo $semesterID ?>">
 
                         <div class="form-group">
                             <label>Program Name</label>
-                            <select class="selectpicker form-control" name="cboprogram" required>
-                                <option value="">Choose Program Name</option>
-                                
-                                <optgroup label="Active">
-                                    <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM program 
-                                                                                        ORDER BY 
-                                                                                        CASE Degree_level
-                                                                                            WHEN 'Diploma' THEN 1
-                                                                                            WHEN 'Bachelor' THEN 2
-                                                                                            WHEN 'Master' THEN 3
-                                                                                            WHEN 'PhD' THEN 4
-                                                                                        END,
-                                                                                        Program_Name ASC");
-                                        $count=mysqli_num_rows($select);
-                                        for ($i=0; $i < $count; $i++) 
-                                        { 
-                                            $data=mysqli_fetch_array($select);
-                                            $programID=$data['ProgramID'];
-                                            $programName=$data['Program_Name'];
-                                            $degreeLevel=$data['Degree_level'];
-                                            $durationYears=$data['Duration_years'];
-                                            $programStatus=$data['Status'];
-
-                                            $yearText = ($durationYears > 1) ? 'years' : 'year';
-
-                                            if($programStatus=="Active")
-                                            {
-                                                echo "<option value='$programID'>$programName, $durationYears $yearText $degreeLevel</option>"; 
-                                            }
-                                        }
-                                     ?>
-                                </optgroup>
-
-                                <optgroup label="Inactive">
-                                    <?php 
-                                        $select=mysqli_query($connection,"SELECT * FROM program 
-                                                                                        ORDER BY 
-                                                                                        CASE Degree_level
-                                                                                            WHEN 'Diploma' THEN 1
-                                                                                            WHEN 'Bachelor' THEN 2
-                                                                                            WHEN 'Master' THEN 3
-                                                                                            WHEN 'PhD' THEN 4
-                                                                                        END,
-                                                                                        Program_Name ASC");
-                                        $count=mysqli_num_rows($select);
-                                        for ($i=0; $i < $count; $i++) 
-                                        { 
-                                            $data=mysqli_fetch_array($select);
-                                            $programID=$data['ProgramID'];
-                                            $programName=$data['Program_Name'];
-                                            $degreeLevel=$data['Degree_level'];
-                                            $durationYears=$data['Duration_years'];
-                                            $programStatus=$data['Status'];
-
-                                            $yearText = ($durationYears > 1) ? 'years' : 'year';
-
-                                            if($programStatus=="Inactive")
-                                            {
-                                                echo "<option disabled>$programName, $durationYears $yearText $degreeLevel</option>";
-                                            }
-                                        }
-                                     ?>
-                                </optgroup>
-                            </select>
+                            <input class="form-control" type="text" value="<?php echo $program_name ?>, <?php echo $duration_years ?> <?php echo $yearText ?> <?php echo $degree_level ?>, <?php echo $program_status ?>" readonly>
                         </div>
 
                         <div class="form-group">
-                            <label class="font-weight-bold">Intake Name</label>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label >Type :</label>
-                                        <select class="selectpicker form-control" name="cbotype" required>
-                                            <option value='Fall'>Fall</option>
-                                            <option value='Spring'>Spring</option>
-                                            <option value='Summer'>Summer</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label >Year :</label>
-                                        <input class="form-control" type="text" name="txtyear" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
-                                    </div>
-                                </div>
-                            </div>
+                            <label>Intake Name</label>
+                            <input class="form-control" type="text" value="<?php echo $intake_name ?>" readonly>
                         </div>
 
                         <div class="form-group">
-                            <label class="font-weight-bold">Academic Year</label>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label >From :</label>
-                                        <input class="form-control" type="text" name="txtfrom" placeholder="YYYY (e.g. 2025)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2025)" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label >To :</label>
-                                        <input class="form-control" type="text" name="txtto" placeholder="YYYY (e.g. 2026)" pattern="[0-9]{4}" maxlength="4" title="Please enter a valid 4-digit year (e.g. 1999, 2026)" required>
-                                    </div>
-                                </div>
-                            </div>
+                            <label>Semester Name</label>
+                            <input class="form-control" type="text" value="<?php echo $semester_name ?>" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Academic Year</label>
+                            <input class="form-control" type="text" value="<?php echo $academic_year ?>" readonly>
                         </div>
 
                         <div class="form-group">
@@ -310,13 +262,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label >Start Date :</label>
-                                        <input class="form-control date-picker" type="text" name="txtstart" placeholder="Select Start Date" value="<?php echo date('Y-m-d') ?>" onClick="showCalender(calender,this)" required>
+                                        <input class="form-control date-picker" type="text" name="txtstart" placeholder="Select Start Date" value="<?php echo $start_date ?>" onClick="showCalender(calender,this)" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label >End Date :</label>
-                                        <input class="form-control date-picker" type="text" name="txtend" placeholder="Select End Date" value="<?php echo date('Y-m-d') ?>" onClick="showCalender(calender,this)" required>
+                                        <input class="form-control date-picker" type="text" name="txtend" placeholder="Select End Date" value="<?php echo $end_date ?>" onClick="showCalender(calender,this)" required>
                                     </div>
                                 </div>
                             </div>
