@@ -5,7 +5,7 @@
     include("../includes/Browsing_Functions.php");
     recordbrowse("http://localhost/UniEnroll/portal/semester_update.php");
 
-    if (isset($_POST['btnregister'])) 
+    if (isset($_POST['btnupdate'])) 
     {
         $SMID=$_POST['txtSMID'];
         $program=$_POST['cboprogram'];
@@ -327,8 +327,7 @@
                                 <p class="mb-30 font-14"></p>
                             </div>
                             <div class="pull-right">
-                                <button class="btn btn-success" type="submit" name="btnregister">Register</button>
-                                <button class="btn btn-danger" type="reset" name="btncancel">Cancel</button>
+                                <button class="btn btn-success" type="submit" name="btnupdate">Update</button>
                             </div>
                         </div>
                     </form>
