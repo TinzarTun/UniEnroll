@@ -44,6 +44,11 @@
         $duration_years   = $data['Duration_years'];
         $program_status   = $data['program_status'];
         $yearText         = ($duration_years > 1) ? 'years' : 'year';
+
+        // Lock logic
+        $isCompleted = ($semester_status === "Completed");
+        $isProgramInactive = ($program_status === "Inactive");
+        $isLockedSemester = ($isCompleted || $isProgramInactive);
     }
 
     if (isset($_POST['btnupdate'])) 
@@ -51,12 +56,54 @@
         $SMID=$_POST['txtSMID'];
         $start=date('Y-m-d',strtotime($_POST['txtstart']));
         $end=date('Y-m-d',strtotime($_POST['txtend']));
-        $status="Planned";
+        $newStatus=$_POST['cbostatus'];
 
         if ($start >= $end) {
             echo "<script>alert('The semester end date must be later than the start date. Please correct the dates.')</script>";
             echo "<script>location='semester.php'</script>";
             exit();
+        }
+
+        // Get current semester and program status
+        $check = mysqli_query($connection, "
+            SELECT s.Status AS semester_status, p.Status AS program_status
+            FROM semester s
+            JOIN program p ON s.ProgramID = p.ProgramID
+            WHERE s.SemesterID='$SMID'
+        ");
+        $row = mysqli_fetch_assoc($check);
+
+        $currentSemesterStatus = $row['semester_status'];
+        $programStatus = $row['program_status'];
+
+        // Block edit ONLY if semester is completed
+        if ($currentSemesterStatus == "Completed") {
+            echo "<script>alert('Completed semesters cannot be edited')</script>";
+            echo "<script>location='semester_list.php'</script>";
+            exit();
+        }
+
+        // Block edit if program inactive
+        if ($programStatus == "Inactive") {
+            echo "<script>alert('Cannot edit semester because program is inactive')</script>";
+            echo "<script>location='semester_list.php'</script>";
+            exit();
+        }
+
+        $update="UPDATE semester
+                SET Start_date='$start', End_date='$end', Status='$newStatus'
+                WHERE SemesterID='$SMID'";
+        $run=mysqli_query($connection,$update);
+
+        if ($run) 
+        {
+            echo "<script>alert('Update Successful!')</script>";
+            echo "<script>location='semester_list.php'</script>";
+        }
+
+        else
+        {
+            echo mysqli_error($connection);
         }
     }
 ?>
@@ -136,13 +183,33 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label >Start Date :</label>
-                                        <input class="form-control date-picker" type="text" name="txtstart" placeholder="Select Start Date" value="<?php echo $start_date ?>" onClick="showCalender(calender,this)" required>
+                                        <input 
+                                            class="form-control date-picker" 
+                                            type="text" 
+                                            name="txtstart" 
+                                            value="<?php echo $start_date ?>" 
+                                            <?php if ($isLockedSemester) { ?>
+                                                readonly
+                                            <?php } else { ?>
+                                                onClick="showCalender(calender,this)"
+                                            <?php } ?>
+                                            required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label >End Date :</label>
-                                        <input class="form-control date-picker" type="text" name="txtend" placeholder="Select End Date" value="<?php echo $end_date ?>" onClick="showCalender(calender,this)" required>
+                                        <input 
+                                            class="form-control date-picker" 
+                                            type="text" 
+                                            name="txtend" 
+                                            value="<?php echo $end_date ?>" 
+                                            <?php if ($isLockedSemester) { ?>
+                                                readonly
+                                            <?php } else { ?>
+                                                onClick="showCalender(calender,this)"
+                                            <?php } ?>
+                                            required>
                                     </div>
                                 </div>
                             </div>
@@ -150,38 +217,29 @@
 
                         <div class="form-group">
                             <label>Status</label>
-                            <?php if ($program_status == "Inactive") { ?>
-                                <!-- Program inactive → status locked -->
+                            <?php if ($isLockedSemester) { ?>
                                 <input type="text" class="form-control" value="<?php echo $semester_status ?>" readonly>
                                 <input type="hidden" name="cbostatus" value="<?php echo $semester_status ?>">
+
                                 <small class="text-danger">
-                                    Semester status cannot be changed because the program is inactive.
+                                    <?php if ($isCompleted) { ?>
+                                        This semester is <strong>Completed</strong> and cannot be updated.
+                                    <?php } else { ?>
+                                        This semester cannot be updated because the program is inactive.
+                                    <?php } ?>
                                 </small>
+
                             <?php } else { ?>
-                                <!-- Program active → editable -->
+                                <!-- Editable -->
                                 <select class="selectpicker form-control" name="cbostatus" required>
-                                    <option><?php echo $semester_status ?></option>
-                                    <?php 
-                                        if($semester_status!="Planned")
-                                        {
-                                            echo"<option value='Planned'>Planned</option>";
-                                        }
+                                    <option value="<?php echo $semester_status ?>">
+                                        <?php echo $semester_status ?>
+                                    </option>
 
-                                        if($semester_status!="Ongoing")
-                                        {
-                                            echo"<option value='Ongoing'>Ongoing</option>";
-                                        }
-
-                                        if($semester_status!="Completed")
-                                        {
-                                            echo"<option value='Completed'>Completed</option>";
-                                        }
-
-                                        if($semester_status!="Cancelled")
-                                        {
-                                            echo"<option value='Cancelled'>Cancelled</option>";
-                                        }
-                                    ?>
+                                    <?php if($semester_status!="Planned")   echo "<option value='Planned'>Planned</option>"; ?>
+                                    <?php if($semester_status!="Ongoing")   echo "<option value='Ongoing'>Ongoing</option>"; ?>
+                                    <?php if($semester_status!="Completed") echo "<option value='Completed'>Completed</option>"; ?>
+                                    <?php if($semester_status!="Cancelled") echo "<option value='Cancelled'>Cancelled</option>"; ?>
                                 </select>
                             <?php } ?>
                         </div>
@@ -191,7 +249,15 @@
                                 <p class="mb-30 font-14"></p>
                             </div>
                             <div class="pull-right">
-                                <button class="btn btn-success" type="submit" name="btnupdate">Update</button>
+                                <?php if ($isLockedSemester) { ?>
+                                    <a href="semester_list.php" class="btn btn-primary btn-sm scroll-click" role="button">
+                                        Go Back
+                                    </a>
+                                <?php } else { ?>
+                                    <button class="btn btn-success" type="submit" name="btnupdate">
+                                        Update
+                                    </button>
+                                <?php } ?>
                             </div>
                         </div>
                     </form>

@@ -126,7 +126,7 @@
                     UPDATE semester
                     SET Status = 'Cancelled'
                     WHERE ProgramID = '$PGID'
-                    AND Status = 'Planned'
+                    AND Status != 'Completed'
                 ");
             }
             echo "<script>alert('Update Successful!')</script>";
